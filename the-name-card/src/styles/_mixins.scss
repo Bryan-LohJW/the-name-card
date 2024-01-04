@@ -1,0 +1,49 @@
+@import 'typeface-roboto';
+
+@import './variables';
+
+@mixin flex-space {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@mixin flex-start {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+@mixin title {
+	font-size: x-large;
+	font-weight: 600;
+}
+
+@mixin app-margin {
+	margin: 0 1rem;
+
+	@media (min-width: $min-width-sm) {
+		// change to put content width same
+		display: grid;
+		grid-template-columns: 1fr $min-width-sm 1fr;
+		grid-template-areas: 'empty1 content empty2';
+	}
+}
+
+@mixin call-to-action {
+	width: 100%;
+	padding: 0.5rem 0;
+
+	font-size: $md-font;
+	text-align: center;
+
+	background-color: black;
+	color: white;
+	border-radius: 0.5rem;
+
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+	@media (min-width: $min-width-sm) {
+		padding: 0.5rem 2rem;
+	}
+}
