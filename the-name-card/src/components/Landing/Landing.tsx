@@ -1,10 +1,11 @@
 import './Landing.scss';
-import { Header } from '..';
+import { Header, MainContent } from '..';
 
 const Landing = () => {
 	return (
 		<div>
 			<Header />
+			<MainContent />
 		</div>
 	);
 };

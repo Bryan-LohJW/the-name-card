@@ -3,13 +3,13 @@
 
 .header {
 	@include flex-space;
-	margin: $small-gap 0;
+	margin: $tiny-gap 0;
 }
 
 .branding {
 	@include flex-start;
 
-	gap: $small-gap;
+	gap: $tiny-gap;
 
 	.logo {
 		height: 2.5rem;
@@ -25,10 +25,10 @@
 	display: none;
 
 	.menu-list {
-		margin: 0 2rem;
+		margin: 0 $small-gap;
 
 		display: flex;
-		gap: 2rem;
+		gap: $small-gap;
 		justify-content: center;
 		align-items: center;
 	}
@@ -48,7 +48,7 @@
 	.menu-content {
 		display: flex;
 		flex-direction: column;
-		gap: 2rem;
+		gap: $small-gap;
 
 		position: fixed;
 		top: 0;
@@ -56,7 +56,7 @@
 		background-color: white;
 
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-		padding: 1rem;
+		padding: $tiny-gap;
 
 		transition: left 0.4s ease-in-out, right 0.4s ease-in-out;
 
@@ -72,10 +72,10 @@
 			display: flex;
 			flex-direction: column;
 
-			gap: 0.5rem;
+			gap: $x-tiny-gap;
 
 			.list-item {
-				padding: 0.5rem 0;
+				padding: $x-tiny-gap 0;
 			}
 		}
 	}
@@ -95,6 +95,7 @@
 	cursor: pointer;
 	height: 2rem;
 	width: 2rem;
+	color: $primary;
 }
 
 .call-to-action {
