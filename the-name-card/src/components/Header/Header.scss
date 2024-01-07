@@ -3,7 +3,12 @@
 
 .header {
 	@include flex-space;
-	margin: $tiny-gap 0;
+	padding: $tiny-gap 0;
+
+	position: sticky;
+	top: 0;
+
+	background-color: $white;
 }
 
 .branding {
