@@ -1,12 +1,17 @@
 import './Landing.scss';
-import { Header, MainContent } from '..';
+import { Header, MainContent, Card, CardHolder } from '..';
 
 const Landing = () => {
 	return (
-		<div>
+		<>
 			<Header />
 			<MainContent />
-		</div>
+			<CardHolder>
+				<Card />
+				<Card />
+				<Card />
+			</CardHolder>
+		</>
 	);
 };
 

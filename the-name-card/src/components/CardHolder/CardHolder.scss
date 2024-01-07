@@ -1,0 +1,11 @@
+@import './../../styles/variables';
+
+.card-holder {
+	display: flex;
+	flex-direction: column;
+
+	gap: $small-gap $tiny-gap;
+	@media (min-width: $min-width-sm) {
+		flex-direction: row;
+	}
+}
