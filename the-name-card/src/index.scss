@@ -132,14 +132,6 @@ table {
 	border-spacing: 0;
 }
 
-.margins {
-	@include app-margin;
-}
-
-.content {
-	grid-area: content;
-}
-
 body {
 	font-family: 'Roboto', sans-serif;
 	color: $primary;

@@ -1,0 +1,9 @@
+@import './../../styles/mixins';
+
+.margins {
+	@include app-margin;
+}
+
+.content {
+	grid-area: content;
+}

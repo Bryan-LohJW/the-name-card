@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, ReactNode } from 'react';
+import './Margin.scss';
 
 interface MarginProps {
 	children: ReactNode | null;
