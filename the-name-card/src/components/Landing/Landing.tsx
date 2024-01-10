@@ -1,5 +1,5 @@
 import './Landing.scss';
-import { Header, MainContent, Card, CardHolder } from '..';
+import { Header, MainContent, Card, CardHolder, Footer } from '..';
 
 const Landing = () => {
 	return (
@@ -11,6 +11,7 @@ const Landing = () => {
 				<Card />
 				<Card />
 			</CardHolder>
+			<Footer />
 		</>
 	);
 };
