@@ -1,0 +1,57 @@
+@import 'typeface-roboto';
+
+@import './variables';
+
+@mixin flex-space {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@mixin flex-start {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+@mixin title {
+	font-size: x-large;
+	font-weight: 600;
+}
+
+@mixin app-margin {
+	margin: 0 $tiny-gap;
+
+	@media (min-width: $min-width-sm) {
+		// change to put content width same
+		display: grid;
+		grid-template-columns: 1fr minmax($min-width-sm, 1200px) 1fr;
+		grid-template-areas: 'empty1 content empty2';
+	}
+}
+
+@mixin call-to-action {
+	width: 100%;
+	padding: $x-tiny-gap 0;
+
+	font-size: $md-font;
+	text-align: center;
+
+	background-color: $primary;
+	color: $white;
+	border-radius: 0.5rem;
+
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+	@media (min-width: $min-width-sm) {
+		padding: $x-tiny-gap $small-gap;
+	}
+}
+
+@mixin action-shadow {
+	box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.15);
+}
+
+@mixin card-shadow {
+	box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.15);
+}

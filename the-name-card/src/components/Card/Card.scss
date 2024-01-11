@@ -1,0 +1,25 @@
+@import './../../styles/mixins';
+@import './../../styles/variables';
+
+.card {
+	@include card-shadow;
+	padding: $small-gap;
+
+	display: flex;
+	flex-direction: column;
+
+	border-radius: 0.5rem;
+
+	.image {
+		margin-bottom: $small-gap;
+		max-width: 100%;
+	}
+
+	.description {
+		margin-bottom: $mid-gap;
+
+		font-size: 1.25rem;
+		font-weight: 500;
+		line-height: 1.5rem;
+	}
+}

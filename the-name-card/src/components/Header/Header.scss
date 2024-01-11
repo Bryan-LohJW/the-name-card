@@ -1,0 +1,120 @@
+@import './../../styles/variables';
+@import './../../styles/mixins';
+
+.header {
+	@include flex-space;
+	padding: $tiny-gap 0;
+
+	position: sticky;
+	top: 0;
+
+	background-color: $white;
+}
+
+.branding {
+	@include flex-start;
+
+	gap: $tiny-gap;
+
+	.logo {
+		height: 2.5rem;
+		width: 2.5rem;
+	}
+
+	.product-name {
+		@include title;
+	}
+}
+
+.nav-desktop {
+	display: none;
+
+	.menu-list {
+		margin: 0 $small-gap;
+
+		display: flex;
+		gap: $small-gap;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.list-item {
+		white-space: nowrap;
+	}
+}
+
+.nav-mobile {
+	position: relative;
+
+	.hamburger {
+		display: block;
+	}
+
+	.menu-content {
+		display: flex;
+		flex-direction: column;
+		gap: $small-gap;
+
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		background-color: white;
+
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		padding: $tiny-gap;
+
+		transition: left 0.4s ease-in-out, right 0.4s ease-in-out;
+
+		.close {
+			position: absolute;
+			right: 1rem;
+			top: 1rem;
+		}
+
+		.menu-list {
+			width: 50%;
+
+			display: flex;
+			flex-direction: column;
+
+			gap: $x-tiny-gap;
+
+			.list-item {
+				padding: $x-tiny-gap 0;
+			}
+		}
+	}
+
+	.menu-content.open {
+		left: 0;
+		right: 0;
+	}
+
+	.menu-content.close {
+		left: 110%;
+		right: -110%;
+	}
+}
+
+.logo {
+	cursor: pointer;
+	height: 2rem;
+	width: 2rem;
+	color: $primary;
+}
+
+.call-to-action {
+	@include call-to-action;
+
+	align-self: center;
+}
+
+@media (min-width: $min-width-sm) {
+	.nav-desktop {
+		display: flex;
+	}
+
+	.nav-mobile {
+		display: none;
+	}
+}
