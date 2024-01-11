@@ -1,5 +1,5 @@
-import './Card.scss';
 import imageUrl from './../../assets/svgs/undraw_portfolio_update_re_jqnp.svg';
+import './Card.scss';
 
 const details = {
 	image: imageUrl,
@@ -18,4 +18,4 @@ const Card = () => {
 	);
 };
 
-export default Card;
+export { Card };

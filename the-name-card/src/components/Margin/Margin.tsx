@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, ReactNode } from 'react';
+
 import './Margin.scss';
 
 interface MarginProps {
@@ -13,4 +14,4 @@ const Margin: FC<PropsWithChildren<MarginProps>> = ({ children }) => {
 	);
 };
 
-export default Margin;
+export { Margin };

@@ -1,6 +1,6 @@
+import standout from './../../assets/svgs/undraw_stand_out_-1-oag.svg';
 import { Section } from '..';
 import './MainContent.scss';
-import standout from './../../assets/svgs/undraw_stand_out_-1-oag.svg';
 
 const MainContent = () => {
 	return (
@@ -32,4 +32,4 @@ const MainContent = () => {
 	);
 };
 
-export default MainContent;
+export { MainContent };

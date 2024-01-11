@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, ReactNode } from 'react';
+
 import { Section } from '..';
 import './CardHolder.scss';
 
@@ -14,4 +15,4 @@ const CardHolder: FC<PropsWithChildren<CardHolderProps>> = ({ children }) => {
 	);
 };
 
-export default CardHolder;
+export { CardHolder };

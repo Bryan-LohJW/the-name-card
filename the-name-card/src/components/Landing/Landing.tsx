@@ -1,5 +1,5 @@
-import './Landing.scss';
 import { Header, MainContent, Card, CardHolder, Footer } from '..';
+import './Landing.scss';
 
 const Landing = () => {
 	return (
@@ -16,4 +16,4 @@ const Landing = () => {
 	);
 };
 
-export default Landing;
+export { Landing };

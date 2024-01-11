@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import './Section.scss';
 
 interface SectionProps {
@@ -9,4 +10,4 @@ const Section: React.FC<SectionProps> = ({ children }) => {
 	return <div className="section">{children}</div>;
 };
 
-export default Section;
+export { Section };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import './Header.scss';
 import { BsPersonVcardFill, BsList, BsXLg } from 'react-icons/bs';
+
+import './Header.scss';
 
 const Header = () => {
 	const [isMenuOpen, setMenuOpen] = useState(false);
@@ -49,4 +50,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export { Header };
