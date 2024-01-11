@@ -1,13 +1,13 @@
-import { FC, PropsWithChildren, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import { Section } from '..';
 import './CardHolder.scss';
 
 interface CardHolderProps {
-	children: ReactNode | ReactNode[];
+	children?: ReactNode | ReactNode[];
 }
 
-const CardHolder: FC<PropsWithChildren<CardHolderProps>> = ({ children }) => {
+const CardHolder = ({ children }: CardHolderProps) => {
 	return (
 		<Section>
 			<div className="card-holder">{children}</div>

@@ -1,12 +1,12 @@
-import { FC, PropsWithChildren, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import './Margin.scss';
 
 interface MarginProps {
-	children: ReactNode | null;
+	children?: ReactNode;
 }
 
-const Margin: FC<PropsWithChildren<MarginProps>> = ({ children }) => {
+const Margin = ({ children }: MarginProps) => {
 	return (
 		<div className="margins">
 			<div className="content">{children}</div>
