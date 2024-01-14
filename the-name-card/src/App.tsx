@@ -5,7 +5,11 @@ import { EditProfile, Landing, Margin } from './components';
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Landing />,
+		element: (
+			<Margin>
+				<Landing />
+			</Margin>
+		),
 	},
 	{
 		path: '/edit-profile',
@@ -14,11 +18,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-	return (
-		<Margin>
-			<RouterProvider router={router} />
-		</Margin>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;
