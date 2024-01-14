@@ -1,12 +1,15 @@
 import OutsideClickHandler from 'react-outside-click-handler';
 import { ChromePicker, ColorResult } from 'react-color';
 import { IoMdArrowBack } from 'react-icons/io';
+import { FaRegAddressCard } from 'react-icons/fa';
 import {
 	IoColorPaletteOutline,
 	IoClose,
 	IoPersonOutline,
 } from 'react-icons/io5';
 import { LuImagePlus } from 'react-icons/lu';
+import { BiMessageDetail } from 'react-icons/bi';
+import { MdOutlineWorkOutline, MdOutlineEmail, MdPhone } from 'react-icons/md';
 
 import './EditProfile.scss';
 import { ChangeEvent, useRef, useState } from 'react';
@@ -118,30 +121,87 @@ export const EditProfile = () => {
 								</OutsideClickHandler>
 							)}
 						</div>
-						<div
-							className="profile-picture-wrapper"
-							onClick={openProfileFileInput}
-						>
-							{profilePictureUri ? (
-								<img
-									src={profilePictureUri}
-									alt="profile picture"
-									className="profile-picture"
-								/>
-							) : (
-								<IoPersonOutline className="profile-picture" />
-							)}
+						<div className="wrapper">
+							<div
+								className="profile-picture-wrapper"
+								onClick={openProfileFileInput}
+							>
+								{profilePictureUri ? (
+									<img
+										src={profilePictureUri}
+										alt="profile picture"
+										className="profile-picture"
+									/>
+								) : (
+									<IoPersonOutline className="profile-picture" />
+								)}
 
-							<input
-								type="file"
-								name="banner picture"
-								style={{ display: 'none' }}
-								ref={profilePictureInputRef}
-								accept="image/png, image/jpeg, image/jpg"
-								onChange={handleProfileFileChange}
-							/>
+								<input
+									type="file"
+									name="banner picture"
+									style={{ display: 'none' }}
+									ref={profilePictureInputRef}
+									accept="image/png, image/jpeg, image/jpg"
+									onChange={handleProfileFileChange}
+								/>
+							</div>
 						</div>
-						<div className="core-info"></div>
+						<div className="core-info">
+							<div className="core-input">
+								<label className="label" htmlFor="name">
+									Name{' '}
+									<FaRegAddressCard className="label-icon" />
+								</label>
+								<input
+									className="input"
+									id="name"
+									type="text"
+								/>
+							</div>
+							<div className="core-input">
+								<label className="label" htmlFor="name">
+									Bio{' '}
+									<BiMessageDetail className="label-icon" />
+								</label>
+								<input
+									className="input"
+									id="name"
+									type="text"
+								/>
+							</div>
+							<div className="core-input">
+								<label className="label" htmlFor="name">
+									Designation{' '}
+									<MdOutlineWorkOutline className="label-icon" />
+								</label>
+								<input
+									className="input"
+									id="name"
+									type="text"
+								/>
+							</div>
+							<div className="core-input">
+								<label className="label" htmlFor="name">
+									Phone <MdPhone className="label-icon" />
+								</label>
+								<input
+									className="input"
+									id="name"
+									type="text"
+								/>
+							</div>
+							<div className="core-input">
+								<label className="label" htmlFor="name">
+									Email{' '}
+									<MdOutlineEmail className="label-icon" />
+								</label>
+								<input
+									className="input"
+									id="name"
+									type="text"
+								/>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

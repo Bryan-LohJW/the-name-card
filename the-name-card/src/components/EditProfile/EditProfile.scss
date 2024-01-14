@@ -41,68 +41,90 @@
 	}
 }
 
-.profile-builder {
-	.core-profile {
-		.banner {
+.banner {
+	width: 100%;
+	height: 10rem;
+
+	position: relative;
+
+	.banner-image {
+		height: 100%;
+		width: 100%;
+
+		object-fit: cover;
+	}
+
+	.banner-setting {
+		display: flex;
+		gap: $x-tiny-gap;
+		padding: $xx-tiny-gap $x-tiny-gap;
+
+		position: absolute;
+		right: 0;
+		bottom: 0;
+
+		transform: translate(0, 100%);
+
+		.banner-icon {
+			height: 1.5rem;
 			width: 100%;
-			height: 10rem;
+		}
+	}
 
-			position: relative;
+	.color-picker {
+		position: absolute;
+		left: 50%;
+		top: 3rem;
+		transform: translate(-50%, 0);
+		z-index: 1;
+	}
+}
 
-			.banner-image {
-				height: 100%;
-				width: 100%;
+.wrapper {
+	height: 7rem;
+}
 
-				object-fit: cover;
-			}
+.profile-picture-wrapper {
+	height: 10rem;
+	width: 10rem;
+	border-radius: 9999px;
+	background-color: $white;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -30%);
+	border: 0.4rem solid $white;
+	overflow: hidden;
 
-			.banner-setting {
-				display: flex;
-				gap: $x-tiny-gap;
-				padding: $xx-tiny-gap $x-tiny-gap;
+	.profile-picture {
+		height: 100%;
+		width: 100%;
 
-				position: absolute;
-				right: 0;
-				bottom: 0;
+		object-fit: cover;
+	}
+}
 
-				transform: translate(0, 100%);
+.core-info {
+	position: relative;
+	display: grid;
+	gap: $x-tiny-gap;
+	padding: 0 0 $mid-gap;
 
-				.banner-icon {
-					height: 1.5rem;
-					width: 100%;
-				}
-			}
+	.core-input {
+		display: flex;
+		flex-direction: column;
+		gap: $xx-tiny-gap;
+		padding: 0 $tiny-gap;
 
-			.color-picker {
-				position: absolute;
-				left: 50%;
-				top: 3rem;
-				transform: translate(-50%, 0);
-				z-index: 1;
+		.label {
+			font-size: 0.8rem;
+			color: $secondary;
+
+			.label-icon {
+				vertical-align: bottom;
 			}
 		}
-
-		.profile-picture-wrapper {
-			height: 10rem;
-			width: 10rem;
-			border-radius: 9999px;
-			background-color: $white;
-			position: absolute;
-			left: 50%;
-			transform: translate(-50%, -30%);
-			border: 0.4rem solid $white;
-			overflow: hidden;
-
-			.profile-picture {
-				height: 100%;
-				width: 100%;
-
-				object-fit: cover;
-			}
-		}
-
-		.core-info {
-			position: relative;
+		.input {
+			padding: $x-tiny-gap;
 		}
 	}
 }
