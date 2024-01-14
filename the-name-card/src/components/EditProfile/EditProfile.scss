@@ -1,0 +1,42 @@
+@import './../../styles/variables';
+@import './../../styles/mixins';
+
+.background {
+	background-color: $off-white;
+	position: fixed;
+
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.editor {
+	background-color: $white;
+}
+
+.header {
+	@include flex-space;
+	padding: $tiny-gap;
+
+	.back-wrapper {
+		.back {
+			height: 1.25rem;
+			width: 100%;
+		}
+	}
+
+	.title {
+		font-size: large;
+		font-weight: 500;
+	}
+
+	.save-button {
+		background-color: $primary;
+		color: $white;
+
+		padding: $xx-tiny-gap $tiny-gap;
+
+		border-radius: 0.25rem;
+	}
+}

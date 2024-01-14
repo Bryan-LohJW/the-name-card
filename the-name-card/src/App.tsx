@@ -1,11 +1,15 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { Landing, Margin } from './components';
+import { EditProfile, Landing, Margin } from './components';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Landing />,
+	},
+	{
+		path: '/edit-profile',
+		element: <EditProfile />,
 	},
 ]);
 
