@@ -1,13 +1,18 @@
 import OutsideClickHandler from 'react-outside-click-handler';
 import { ChromePicker, ColorResult } from 'react-color';
 import { IoMdArrowBack } from 'react-icons/io';
-import { IoColorPaletteOutline, IoClose } from 'react-icons/io5';
+import {
+	IoColorPaletteOutline,
+	IoClose,
+	IoPersonOutline,
+} from 'react-icons/io5';
 import { LuImagePlus } from 'react-icons/lu';
 
 import './EditProfile.scss';
 import { ChangeEvent, useRef, useState } from 'react';
 
 export const EditProfile = () => {
+	// banner stuff for future refactor
 	const [bannerColor, setBannerColor] = useState<string>('#10A5F5');
 	const [showColorPalette, setShowColorPalette] = useState(false);
 	const [bannerImageUri, setBannerImageUri] = useState<string | null>(null);
@@ -23,7 +28,7 @@ export const EditProfile = () => {
 		setShowColorPalette((prev) => !prev);
 	};
 
-	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleBannerFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.currentTarget.files === null) return;
 		const files = event?.target?.files;
 		if (files) {
@@ -34,6 +39,26 @@ export const EditProfile = () => {
 	};
 
 	const bannerStyle = { backgroundColor: bannerColor };
+
+	// profile picture for future refactor
+	const [profilePictureUri, setProfilePictureUri] = useState<string | null>(
+		null
+	);
+	const profilePictureInputRef = useRef<HTMLInputElement>(null);
+
+	const handleProfileFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+		if (event.currentTarget.files === null) return;
+		const files = event?.target?.files;
+		if (files) {
+			const file = files[0];
+			const url = URL.createObjectURL(file);
+			setProfilePictureUri(url);
+		}
+	};
+
+	const openProfileFileInput = () => {
+		profilePictureInputRef.current?.click();
+	};
 
 	return (
 		<div className="background">
@@ -61,7 +86,7 @@ export const EditProfile = () => {
 								style={{ display: 'none' }}
 								ref={bannerPictureInputRef}
 								accept="image/png, image/jpeg, image/jpg"
-								onChange={handleFileChange}
+								onChange={handleBannerFileChange}
 							/>
 							<div className="banner-setting">
 								<LuImagePlus
@@ -91,7 +116,29 @@ export const EditProfile = () => {
 								</OutsideClickHandler>
 							)}
 						</div>
-						<div className="profile-picture"></div>
+						<div
+							className="profile-picture-wrapper"
+							onClick={openProfileFileInput}
+						>
+							{profilePictureUri ? (
+								<img
+									src={profilePictureUri}
+									alt="profile picture"
+									className="profile-picture"
+								/>
+							) : (
+								<IoPersonOutline className="profile-picture" />
+							)}
+
+							<input
+								type="file"
+								name="banner picture"
+								style={{ display: 'none' }}
+								ref={profilePictureInputRef}
+								accept="image/png, image/jpeg, image/jpg"
+								onChange={handleProfileFileChange}
+							/>
+						</div>
 						<div className="core-info"></div>
 					</div>
 				</div>
