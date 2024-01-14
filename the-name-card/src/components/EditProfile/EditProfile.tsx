@@ -28,6 +28,10 @@ export const EditProfile = () => {
 		setShowColorPalette((prev) => !prev);
 	};
 
+	const openBannerFileInput = () => {
+		bannerPictureInputRef.current?.click();
+	};
+
 	const handleBannerFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.currentTarget.files === null) return;
 		const files = event?.target?.files;
@@ -91,9 +95,7 @@ export const EditProfile = () => {
 							<div className="banner-setting">
 								<LuImagePlus
 									className="banner-icon"
-									onClick={() =>
-										bannerPictureInputRef.current?.click()
-									}
+									onClick={openBannerFileInput}
 								/>
 								{!showColorPalette ? (
 									<IoColorPaletteOutline
