@@ -7,3 +7,5 @@ export * from './Card/Card';
 export * from './CardHolder/CardHolder';
 export * from './Footer/Footer';
 export * from './EditProfile/EditProfile';
+export * from './WidgetItem/WidgetItem';
+export * from './WidgetItem/Items';

@@ -13,6 +13,7 @@ import { MdOutlineWorkOutline, MdOutlineEmail, MdPhone } from 'react-icons/md';
 
 import './EditProfile.scss';
 import { ChangeEvent, useRef, useState } from 'react';
+import { ItemProp, WidgetItem, WidgetType } from '..';
 
 export const EditProfile = () => {
 	// banner stuff for future refactor
@@ -204,8 +205,12 @@ export const EditProfile = () => {
 							</div>
 						</div>
 					</div>
+					<div className="widget">
+						<WidgetItem type={WidgetType.Instagram} value={'asd'} />
+					</div>
 				</div>
+				<div className="add-widget">+ Widget</div>
 			</div>
-		</div>
+		</>
 	);
 };
