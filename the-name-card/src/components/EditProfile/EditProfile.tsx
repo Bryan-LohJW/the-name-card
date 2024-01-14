@@ -1,8 +1,40 @@
+import OutsideClickHandler from 'react-outside-click-handler';
+import { ChromePicker, ColorResult } from 'react-color';
 import { IoMdArrowBack } from 'react-icons/io';
+import { IoColorPaletteOutline, IoClose } from 'react-icons/io5';
+import { LuImagePlus } from 'react-icons/lu';
 
 import './EditProfile.scss';
+import { ChangeEvent, useRef, useState } from 'react';
 
 export const EditProfile = () => {
+	const [bannerColor, setBannerColor] = useState<string>('#10A5F5');
+	const [showColorPalette, setShowColorPalette] = useState(false);
+	const [bannerImageUri, setBannerImageUri] = useState<string | null>(null);
+
+	const bannerPictureInputRef = useRef<HTMLInputElement>(null);
+
+	const onColorChange = (color: ColorResult) => {
+		setBannerColor(color.hex);
+		setBannerImageUri(null);
+	};
+
+	const toggleColorPalette = () => {
+		setShowColorPalette((prev) => !prev);
+	};
+
+	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+		if (event.currentTarget.files === null) return;
+		const files = event?.target?.files;
+		if (files) {
+			const file = files[0];
+			const url = URL.createObjectURL(file);
+			setBannerImageUri(url);
+		}
+	};
+
+	const bannerStyle = { backgroundColor: bannerColor };
+
 	return (
 		<div className="background">
 			<div className="editor">
@@ -13,8 +45,55 @@ export const EditProfile = () => {
 					<p className="title">Edit Profile</p>
 					<div className="save-button">Save</div>
 				</div>
-				<div className="form">
-					<div className="core-profile">Core-profile</div>
+				<div className="profile-builder">
+					<div className="core-profile">
+						<div className="banner" style={bannerStyle}>
+							{bannerImageUri && (
+								<img
+									src={bannerImageUri}
+									alt="banner-image"
+									className="banner-image"
+								/>
+							)}
+							<input
+								type="file"
+								name="banner picture"
+								style={{ display: 'none' }}
+								ref={bannerPictureInputRef}
+								accept="image/png, image/jpeg, image/jpg"
+								onChange={handleFileChange}
+							/>
+							<div className="banner-setting">
+								<LuImagePlus
+									className="banner-icon"
+									onClick={() =>
+										bannerPictureInputRef.current?.click()
+									}
+								/>
+								{!showColorPalette ? (
+									<IoColorPaletteOutline
+										className="banner-icon"
+										onClick={toggleColorPalette}
+									/>
+								) : (
+									<IoClose className="banner-icon" />
+								)}
+							</div>
+							{showColorPalette && (
+								<OutsideClickHandler
+									onOutsideClick={toggleColorPalette}
+								>
+									<ChromePicker
+										className="color-picker"
+										color={bannerColor}
+										onChange={onColorChange}
+									/>
+								</OutsideClickHandler>
+							)}
+						</div>
+						<div className="profile-picture"></div>
+						<div className="core-info"></div>
+					</div>
 				</div>
 			</div>
 		</div>
