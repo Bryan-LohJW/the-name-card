@@ -68,7 +68,8 @@ export const EditProfile = () => {
 	};
 
 	return (
-		<div className="background">
+		<>
+			<div className="background"></div>
 			<div className="editor">
 				<div className="header">
 					<div className="back-wrapper">
