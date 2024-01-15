@@ -19,7 +19,8 @@
     "react-sortablejs": "^6.1.4",
     "sass": "^1.69.7",
     "sortablejs": "^1.15.2",
-    "typeface-roboto": "^1.1.13"
+    "typeface-roboto": "^1.1.13",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
