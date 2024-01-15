@@ -207,6 +207,12 @@ export const EditProfile = () => {
 					</div>
 					<div className="widget">
 						<WidgetItem type={WidgetType.Instagram} value={'asd'} />
+						<WidgetItem
+							type={WidgetType.Socials}
+							value={
+								'[{"social":"instagram","value":"example1"},{"social":"instagram","value":"example2"}]'
+							}
+						/>
 					</div>
 				</div>
 				<div className="add-widget">+ Widget</div>
