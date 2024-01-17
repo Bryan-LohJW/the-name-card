@@ -8,6 +8,5 @@ export interface WidgetProp {
 }
 
 export enum WidgetType {
-	Instagram,
 	Socials,
 }
