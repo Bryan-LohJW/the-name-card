@@ -1,5 +1,6 @@
-import OutsideClickHandler from 'react-outside-click-handler';
+import { ChangeEvent, useRef, useState } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
+import OutsideClickHandler from 'react-outside-click-handler';
 import { IoMdArrowBack } from 'react-icons/io';
 import { FaRegAddressCard } from 'react-icons/fa';
 import {
@@ -11,9 +12,8 @@ import { LuImagePlus } from 'react-icons/lu';
 import { BiMessageDetail } from 'react-icons/bi';
 import { MdOutlineWorkOutline, MdOutlineEmail, MdPhone } from 'react-icons/md';
 
-import './EditProfile.scss';
-import { ChangeEvent, useRef, useState } from 'react';
 import { ItemProp, WidgetItem, WidgetType } from '..';
+import './EditProfile.scss';
 
 export const EditProfile = () => {
 	// banner stuff for future refactor
@@ -206,7 +206,6 @@ export const EditProfile = () => {
 						</div>
 					</div>
 					<div className="widget">
-						<WidgetItem type={WidgetType.Instagram} value={'asd'} />
 						<WidgetItem type={WidgetType.Socials} />
 					</div>
 				</div>

@@ -1,4 +1,6 @@
+import React, { useState } from 'react';
 import { z } from 'zod';
+import OutsideClickHandler from 'react-outside-click-handler';
 import {
 	FaInstagram,
 	FaFacebook,
@@ -10,11 +12,7 @@ import {
 } from 'react-icons/fa6';
 import { TiPlus } from 'react-icons/ti';
 
-import { ItemProp } from '.';
 import './Socials.scss';
-import { useState } from 'react';
-import React from 'react';
-import OutsideClickHandler from 'react-outside-click-handler';
 
 enum SocialMediaType {
 	Instagram = 'instagram',
