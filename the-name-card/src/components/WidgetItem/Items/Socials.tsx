@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import OutsideClickHandler from 'react-outside-click-handler';
 import {
@@ -12,6 +12,7 @@ import {
 } from 'react-icons/fa6';
 import { TiPlus } from 'react-icons/ti';
 
+import { WidgetProp } from '.';
 import './Socials.scss';
 
 enum SocialMediaType {
@@ -67,12 +68,19 @@ const SocialTypesMap: SocialTypesMap = {
 	},
 };
 
-export const Socials = () => {
-	const [socialArray, setSocialArray] = useState<SocialArray>([]);
+export const Socials: React.FC<WidgetProp> = ({ value, updateValue }) => {
+	const hello = JSON.parse(value);
+	let socialsValue = SocialArray.parse(hello);
 	const [existingSocials, setExistingSocials] = useState<
 		Set<SocialMediaType>
 	>(new Set());
 	const [showOptions, setShowOptions] = useState(false);
+
+	useEffect(() => {
+		socialsValue.map((social) => {
+			setExistingSocials((prev) => prev.add(social.social));
+		});
+	});
 
 	const optionStyle = {
 		display: showOptions ? '' : 'none',
@@ -84,7 +92,8 @@ export const Socials = () => {
 
 	const addSocial = (social: SocialMediaType) => {
 		setExistingSocials((prev) => prev.add(social));
-		setSocialArray((prev) => [...prev, { social: social, value: '' }]);
+		socialsValue = [...socialsValue, { social: social, value: '' }];
+		updateValue && updateValue(JSON.stringify(socialsValue));
 	};
 
 	const deleteSocial = (social: SocialMediaType, index: number) => {
@@ -92,23 +101,17 @@ export const Socials = () => {
 			prev.delete(social);
 			return prev;
 		});
-		setSocialArray((prev) => {
-			const updatedArray = [...prev];
-			updatedArray.splice(index, 1);
-			return updatedArray;
-		});
+		socialsValue.splice(index, 1);
+		updateValue && updateValue(JSON.stringify(socialsValue));
 	};
 
 	const handleChange = (index: number, newValue: string) => {
-		setSocialArray((prev) => {
-			const updatedArray = [...prev];
-			updatedArray[index].value = newValue;
-			return updatedArray;
-		});
+		socialsValue[index].value = newValue;
+		updateValue && updateValue(JSON.stringify(socialsValue));
 	};
 	return (
 		<div className="widget-socials">
-			{socialArray.map((social, index) => {
+			{socialsValue.map((social, index) => {
 				const socialType = SocialTypesMap[social.social];
 				const SocialIcon = socialType.icon;
 				return (

@@ -12,7 +12,7 @@ import { LuImagePlus } from 'react-icons/lu';
 import { BiMessageDetail } from 'react-icons/bi';
 import { MdOutlineWorkOutline, MdOutlineEmail, MdPhone } from 'react-icons/md';
 
-import { ItemProp, WidgetItem, WidgetType } from '..';
+import { WidgetItem, WidgetProp, WidgetType } from '..';
 import './EditProfile.scss';
 
 export const EditProfile = () => {
@@ -20,6 +20,7 @@ export const EditProfile = () => {
 	const [bannerColor, setBannerColor] = useState<string>('#10A5F5');
 	const [showColorPalette, setShowColorPalette] = useState(false);
 	const [bannerImageUri, setBannerImageUri] = useState<string | null>(null);
+	const [widgetProperties, setWidgetProperties] = useState<WidgetProp[]>([]);
 
 	const bannerPictureInputRef = useRef<HTMLInputElement>(null);
 
@@ -205,11 +206,49 @@ export const EditProfile = () => {
 							</div>
 						</div>
 					</div>
-					<div className="widget">
-						<WidgetItem type={WidgetType.Socials} />
-					</div>
+					{widgetProperties.map((widget, index) => {
+						const updateValue = (value: string) => {
+							setWidgetProperties((prev) => {
+								const updated = [...prev];
+								updated[index] = { ...updated[index], value };
+								return updated;
+							});
+						};
+
+						const deleteWidget = () => {
+							setWidgetProperties((prev) => {
+								const updated = [...prev];
+								updated.splice(index, 1);
+								return updated;
+							});
+						};
+						return (
+							<div className="widget" key={widget.id}>
+								<WidgetItem
+									type={widget.type}
+									value={widget.value}
+									updateValue={updateValue}
+									deleteWidget={deleteWidget}
+								/>
+							</div>
+						);
+					})}
 				</div>
-				<div className="add-widget">+ Widget</div>
+				<div
+					className="add-widget"
+					onClick={() =>
+						setWidgetProperties((prev) => [
+							...prev,
+							{
+								type: WidgetType.Socials,
+								value: '[]',
+								id: crypto.randomUUID(),
+							},
+						])
+					}
+				>
+					+ Widget
+				</div>
 			</div>
 		</>
 	);

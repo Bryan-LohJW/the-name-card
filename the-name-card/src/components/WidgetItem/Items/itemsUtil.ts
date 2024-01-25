@@ -1,10 +1,14 @@
-export type ItemProp = {
-	value?: string[] | string;
-};
-
 export interface WidgetProp {
+	id?: string;
 	type: WidgetType;
-	value?: string[] | string;
+	value: string;
+	deleteWidget?: () => void;
+	updateValue?: (value: string) => void;
+}
+
+export interface WidgetState {
+	type: WidgetType;
+	value?: string;
 }
 
 export enum WidgetType {

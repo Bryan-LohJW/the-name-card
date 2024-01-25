@@ -1,18 +1,33 @@
-import { ItemProp, Socials, WidgetProp, WidgetType } from './Items';
+import { IoClose } from 'react-icons/io5';
+
+import { Socials, WidgetProp, WidgetType } from './Items';
+import './WidgetItem.scss';
 
 type WidgetComponentMap = {
-	[WidgetType.Socials]: React.FC<ItemProp>;
+	[WidgetType.Socials]: React.FC<WidgetProp>;
 };
 
 const widgetComponentMap: WidgetComponentMap = {
-	[WidgetType.Socials]: (props: ItemProp) => <Socials />,
+	[WidgetType.Socials]: Socials,
 };
 
-export const WidgetItem = ({ type, value }: WidgetProp) => {
+export const WidgetItem: React.FC<WidgetProp> = ({
+	type,
+	value,
+	updateValue,
+	deleteWidget,
+}) => {
 	const WidgetComponent = widgetComponentMap[type];
 	return (
-		<>
-			<WidgetComponent value={value} />
-		</>
+		<div className="widget-wrapper">
+			<WidgetComponent
+				type={type}
+				value={value}
+				updateValue={updateValue}
+			/>
+			<div className="delete-button" onClick={deleteWidget}>
+				<IoClose className="delete-icon" />
+			</div>
+		</div>
 	);
 };

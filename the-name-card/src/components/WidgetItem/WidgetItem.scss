@@ -1,0 +1,19 @@
+@import './../../styles/variables';
+
+.widget-wrapper {
+	margin: $small-gap 0;
+
+	position: relative;
+}
+
+.delete-button {
+	position: absolute;
+	right: 0;
+	top: 0;
+
+	.delete-icon {
+		height: 1.5rem;
+		width: 1.5rem;
+		color: $red;
+	}
+}
