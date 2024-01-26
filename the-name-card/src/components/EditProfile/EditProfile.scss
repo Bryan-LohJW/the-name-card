@@ -136,3 +136,43 @@
 	background-color: $secondary;
 	color: $white;
 }
+
+.widget {
+	margin: $tiny-gap;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $white;
+
+	// pointer-events: none;
+	user-select: none;
+
+	.delete-button {
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		.delete-icon {
+			height: 1.5rem;
+			width: 1.5rem;
+			color: $red;
+		}
+	}
+}
+
+.sortable-knob {
+	height: fit-content;
+	width: fit-content;
+	align-self: flex-end;
+
+	overflow: hidden;
+	.knob-icon {
+		height: 2.5rem;
+		width: 4rem;
+	}
+}
+
+.highlight {
+	@include card-shadow;
+}

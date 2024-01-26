@@ -25,9 +25,6 @@ export const WidgetItem: React.FC<WidgetProp> = ({
 				value={value}
 				updateValue={updateValue}
 			/>
-			<div className="delete-button" onClick={deleteWidget}>
-				<IoClose className="delete-icon" />
-			</div>
 		</div>
 	);
 };

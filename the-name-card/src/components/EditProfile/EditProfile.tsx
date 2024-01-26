@@ -10,7 +10,14 @@ import {
 } from 'react-icons/io5';
 import { LuImagePlus } from 'react-icons/lu';
 import { BiMessageDetail } from 'react-icons/bi';
-import { MdOutlineWorkOutline, MdOutlineEmail, MdPhone } from 'react-icons/md';
+import {
+	MdOutlineWorkOutline,
+	MdOutlineEmail,
+	MdPhone,
+	MdDragIndicator,
+} from 'react-icons/md';
+import SortableList, { SortableItem, SortableKnob } from 'react-easy-sort';
+import arrayMove from 'array-move';
 
 import { WidgetItem, WidgetProp, WidgetType } from '..';
 import './EditProfile.scss';
@@ -67,6 +74,10 @@ export const EditProfile = () => {
 
 	const openProfileFileInput = () => {
 		profilePictureInputRef.current?.click();
+	};
+
+	const onSortEnd = (oldIndex: number, newIndex: number) => {
+		setWidgetProperties((array) => arrayMove(array, oldIndex, newIndex));
 	};
 
 	return (
@@ -206,33 +217,54 @@ export const EditProfile = () => {
 							</div>
 						</div>
 					</div>
-					{widgetProperties.map((widget, index) => {
-						const updateValue = (value: string) => {
-							setWidgetProperties((prev) => {
-								const updated = [...prev];
-								updated[index] = { ...updated[index], value };
-								return updated;
-							});
-						};
+					<SortableList
+						onSortEnd={onSortEnd}
+						draggedItemClassName="highlight"
+					>
+						{widgetProperties.map((widget, index) => {
+							const updateValue = (value: string) => {
+								setWidgetProperties((prev) => {
+									const updated = [...prev];
+									updated[index] = {
+										...updated[index],
+										value,
+									};
+									return updated;
+								});
+							};
 
-						const deleteWidget = () => {
-							setWidgetProperties((prev) => {
-								const updated = [...prev];
-								updated.splice(index, 1);
-								return updated;
-							});
-						};
-						return (
-							<div className="widget" key={widget.id}>
-								<WidgetItem
-									type={widget.type}
-									value={widget.value}
-									updateValue={updateValue}
-									deleteWidget={deleteWidget}
-								/>
-							</div>
-						);
-					})}
+							const deleteWidget = () => {
+								setWidgetProperties((prev) => {
+									const updated = [...prev];
+									updated.splice(index, 1);
+									return updated;
+								});
+							};
+							return (
+								<SortableItem key={widget.id}>
+									<div className="widget" key={widget.id}>
+										<WidgetItem
+											type={widget.type}
+											value={widget.value}
+											updateValue={updateValue}
+											deleteWidget={deleteWidget}
+										/>
+										<div
+											className="delete-button"
+											onClick={deleteWidget}
+										>
+											<IoClose className="delete-icon" />
+										</div>
+										<SortableKnob>
+											<div className="sortable-knob">
+												<MdDragIndicator className="knob-icon" />
+											</div>
+										</SortableKnob>
+									</div>
+								</SortableItem>
+							);
+						})}
+					</SortableList>
 				</div>
 				<div
 					className="add-widget"
