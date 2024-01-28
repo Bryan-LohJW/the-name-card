@@ -55,3 +55,22 @@
 @mixin card-shadow {
 	box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.15);
 }
+
+@mixin input {
+	display: flex;
+	flex-direction: column;
+	gap: $xx-tiny-gap;
+	padding: 0 $tiny-gap;
+
+	.label {
+		font-size: 0.8rem;
+		color: $secondary;
+
+		.label-icon {
+			vertical-align: bottom;
+		}
+	}
+	.input {
+		padding: $x-tiny-gap;
+	}
+}
