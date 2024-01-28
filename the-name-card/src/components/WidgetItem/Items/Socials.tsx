@@ -69,8 +69,8 @@ const SocialTypesMap: SocialTypesMap = {
 };
 
 export const Socials: React.FC<WidgetProp> = ({ value, updateValue }) => {
-	const hello = JSON.parse(value);
-	let socialsValue = SocialArray.parse(hello);
+	const rawValue = JSON.parse(value);
+	let socialsValue = SocialArray.parse(rawValue);
 	const [existingSocials, setExistingSocials] = useState<
 		Set<SocialMediaType>
 	>(new Set());
