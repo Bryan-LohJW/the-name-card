@@ -19,7 +19,7 @@ import {
 import SortableList, { SortableItem, SortableKnob } from 'react-easy-sort';
 import arrayMove from 'array-move';
 
-import { WidgetItem, WidgetProp, WidgetType } from '..';
+import { Dropdown, DropdownItem, WidgetItem, WidgetProp, WidgetType } from '..';
 import './EditProfile.scss';
 
 export const EditProfile = () => {
@@ -80,6 +80,17 @@ export const EditProfile = () => {
 		setWidgetProperties((array) => arrayMove(array, oldIndex, newIndex));
 	};
 
+	const setWidgetPropertiesWrapper = (type: WidgetType) => {
+		return () =>
+			setWidgetProperties((prev) => [
+				...prev,
+				{
+					type: type,
+					value: '[]',
+					id: crypto.randomUUID(),
+				},
+			]);
+	};
 	return (
 		<>
 			<div className="background"></div>
@@ -266,21 +277,16 @@ export const EditProfile = () => {
 						})}
 					</SortableList>
 				</div>
-				<div
-					className="add-widget"
-					onClick={() =>
-						setWidgetProperties((prev) => [
-							...prev,
-							{
-								type: WidgetType.Socials,
-								value: '[]',
-								id: crypto.randomUUID(),
-							},
-						])
-					}
-				>
-					+ Widget
-				</div>
+				<Dropdown>
+					<DropdownItem
+						label="Socials"
+						onClick={setWidgetPropertiesWrapper(WidgetType.Socials)}
+					/>
+					<DropdownItem
+						label="Link"
+						onClick={setWidgetPropertiesWrapper(WidgetType.Link)}
+					/>
+				</Dropdown>
 			</div>
 		</>
 	);

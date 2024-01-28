@@ -128,15 +128,6 @@
 	}
 }
 
-.add-widget {
-	padding: $tiny-gap;
-	margin: 0 $mid-gap $x-tiny-gap;
-	text-align: center;
-	border-radius: 0.3rem;
-	background-color: $secondary;
-	color: $white;
-}
-
 .widget {
 	margin: $tiny-gap;
 	position: relative;
@@ -144,6 +135,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: $white;
+	padding-right: 20px;
 
 	// pointer-events: none;
 	user-select: none;

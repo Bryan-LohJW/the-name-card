@@ -9,3 +9,4 @@ export * from './Footer/Footer';
 export * from './EditProfile/EditProfile';
 export * from './WidgetItem/WidgetItem';
 export * from './WidgetItem/Items';
+export * from './Dropdown';

@@ -13,4 +13,5 @@ export interface WidgetState {
 
 export enum WidgetType {
 	Socials,
+	Link,
 }
