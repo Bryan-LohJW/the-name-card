@@ -15,3 +15,8 @@ export enum WidgetType {
 	Socials,
 	Link,
 }
+
+export const WidgetInitialValue = {
+	Socials: '[]',
+	Link: '{"description": "", "link": ""}',
+};
