@@ -1,5 +1,5 @@
-org: bryanloh
-app: the-name-card
+useDotenv: true
+
 service: the-name-card
 frameworkVersion: '3'
 
@@ -9,5 +9,13 @@ provider:
     region: ap-southeast-1
 
 functions:
-    function1:
-        handler: index.handler
+    testing:
+        handler: src/functions/test.handler
+        events:
+            - httpApi:
+                  path: /thenamecard/test
+                  method: get
+
+plugins:
+    - serverless-plugin-typescript
+    - serverless-dotenv-plugin
