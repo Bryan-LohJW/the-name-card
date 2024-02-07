@@ -9,12 +9,12 @@ provider:
     region: ap-southeast-1
 
 functions:
-    testing:
-        handler: src/functions/test.handler
+    signToken:
+        handler: src/functions/auth.signToken
         events:
             - httpApi:
-                  path: /thenamecard/test
-                  method: get
+                  path: /thenamecard/signToken
+                  method: post
 
 plugins:
     - serverless-plugin-typescript
