@@ -1,0 +1,13 @@
+org: bryanloh
+app: the-name-card
+service: the-name-card
+frameworkVersion: '3'
+
+provider:
+    name: aws
+    runtime: nodejs18.x
+    region: ap-southeast-1
+
+functions:
+    function1:
+        handler: index.handler
