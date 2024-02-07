@@ -4,6 +4,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.133",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^16.4.1",
     "@types/serverless": "^3.12.22",
     "serverless": "^3.38.0",
