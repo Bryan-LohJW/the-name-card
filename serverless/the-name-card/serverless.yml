@@ -7,6 +7,11 @@ provider:
     name: aws
     runtime: nodejs18.x
     region: ap-southeast-1
+    httpApi:
+        authorizers:
+            jwtAuthorizer:
+                type: token
+                functionName: authorize
 
 functions:
     signToken:
@@ -15,6 +20,8 @@ functions:
             - httpApi:
                   path: /thenamecard/signToken
                   method: post
+    authorize:
+        handler: src/functions/auth.authorize
 
 plugins:
     - serverless-plugin-typescript
