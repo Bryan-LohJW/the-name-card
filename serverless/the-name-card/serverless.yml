@@ -20,6 +20,14 @@ functions:
             - httpApi:
                   path: /thenamecard/signToken
                   method: post
+
+    testDb:
+        handler: src/functions/db.test
+        events:
+            - httpApi:
+                  path: /thenamecard/testdb
+                  method: post
+
     authorize:
         handler: src/functions/auth.authorize
 
