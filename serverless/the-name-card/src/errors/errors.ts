@@ -68,3 +68,13 @@ export class InternalError extends BaseError {
 		super('Internal Server Error', httpCode, description, isOperational);
 	}
 }
+
+export class NotFoundError extends BaseError {
+	constructor(
+		description: string,
+		httpCode: HttpStatusCode = HttpStatusCode.NOT_FOUND,
+		isOperational: boolean = false
+	) {
+		super('Not Found Error', httpCode, description, isOperational);
+	}
+}

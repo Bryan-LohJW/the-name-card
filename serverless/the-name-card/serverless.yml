@@ -28,6 +28,13 @@ functions:
                   path: /thenamecard/createUser
                   method: post
 
+    createProfile:
+        handler: src/functions/db.createProfile
+        events:
+            - httpApi:
+                  path: /thenamecard/createProfile
+                  method: post
+
     authorize:
         handler: src/functions/auth.authorize
 
