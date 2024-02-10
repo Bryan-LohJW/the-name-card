@@ -5,17 +5,20 @@ import {
 	APIGatewayProxyResult,
 	APIGatewayTokenAuthorizerEvent,
 	APIGatewayTokenAuthorizerHandler,
-	AuthResponse,
-	CustomAuthorizerCallback,
-	CustomAuthorizerEvent,
 	PolicyDocument,
-	Statement,
 } from 'aws-lambda';
 import { z } from 'zod';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import { AuthError, ProcessEnvironmentError } from '@src/errors/errors';
 config();
+
+import {
+	AuthError,
+	BaseError,
+	HttpStatusCode,
+	ProcessEnvironmentError,
+	ValidationError,
+} from 'src/errors/errors';
 
 const signTokenBodySchema = z.object({
 	secret: z.string(),
@@ -33,18 +36,14 @@ export const signToken: APIGatewayProxyHandler = async (
 			signTokenBodySchema.parse(body);
 		} catch (e) {
 			console.error(e);
-			return {
-				statusCode: 400,
-				body: JSON.stringify({ message: 'Bad Request' }),
-			};
+			throw new ValidationError('Bad request');
 		}
 		const SECRET = process.env.SECRET;
-		if (!SECRET) throw new ProcessEnvironmentError();
-		if (body.secret !== SECRET)
-			return {
-				statusCode: 401,
-				body: JSON.stringify({ message: 'Unauthorized' }),
-			};
+		if (!SECRET)
+			throw new ProcessEnvironmentError(
+				'Error getting process environment: SECRET'
+			);
+		if (body.secret !== SECRET) throw new AuthError('Unauthorized');
 
 		const oneHourFromNow = Math.floor(Date.now() / 1000) + 60 * 60;
 		const payload = {
@@ -53,7 +52,10 @@ export const signToken: APIGatewayProxyHandler = async (
 			...(body.optionalVar && { optional: body.optionalVar }),
 		};
 		const JWT_SECRET = process.env.JWT_SECRET;
-		if (!JWT_SECRET) throw Error;
+		if (!JWT_SECRET)
+			throw new ProcessEnvironmentError(
+				'Error getting process environment: JWT_SECRET'
+			);
 		const token = jwt.sign(payload, JWT_SECRET);
 
 		return {
@@ -62,9 +64,14 @@ export const signToken: APIGatewayProxyHandler = async (
 		};
 	} catch (e) {
 		console.error(e);
+		if (e instanceof BaseError)
+			return {
+				statusCode: e.httpCode,
+				body: JSON.stringify({ message: e.message }),
+			};
 		return {
 			statusCode: 500,
-			body: JSON.stringify({ message: 'Unexpected Error' }),
+			body: JSON.stringify({ message: 'Internal server error' }),
 		};
 	}
 };
@@ -75,9 +82,7 @@ export const authorize: APIGatewayTokenAuthorizerHandler = async (
 	try {
 		console.log('Starting token authorization');
 
-		if (!event.authorizationToken) {
-			throw new AuthError('Missing token');
-		}
+		if (!event.authorizationToken) throw new AuthError('Missing token');
 
 		const decoded = validateToken(event.authorizationToken.substring(7));
 		if (decoded === null) throw new AuthError('Invalid token');
@@ -89,8 +94,15 @@ export const authorize: APIGatewayTokenAuthorizerHandler = async (
 			policyDocument,
 		};
 	} catch (e: any) {
-		console.error('An error occurred during authorization', e);
-		throw new AuthError('Unauthorized');
+		console.error(e);
+		if (e instanceof BaseError)
+			throw new BaseError(e.name, e.httpCode, e.message, e.isOperational);
+		throw new BaseError(
+			'Internal server error',
+			HttpStatusCode.INTERNAL_SERVER,
+			'Internal server error',
+			false
+		);
 	}
 };
 
@@ -112,7 +124,10 @@ const validateToken = (token: string): any => {
 	console.log('Starting token validation');
 	try {
 		const JWT_SECRET = process.env.JWT_SECRET;
-		if (!JWT_SECRET) throw new ProcessEnvironmentError();
+		if (!JWT_SECRET)
+			throw new ProcessEnvironmentError(
+				'Error getting process environment: JWT_SECRET'
+			);
 		return jwt.verify(token, JWT_SECRET);
 	} catch (e: any) {
 		console.error(e);
