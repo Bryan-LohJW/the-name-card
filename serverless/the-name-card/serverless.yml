@@ -10,7 +10,7 @@ provider:
     httpApi:
         authorizers:
             jwtAuthorizer:
-                type: token
+                type: request
                 functionName: authorize
 
 functions:
