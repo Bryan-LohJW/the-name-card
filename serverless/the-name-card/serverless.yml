@@ -21,11 +21,11 @@ functions:
                   path: /thenamecard/signToken
                   method: post
 
-    testDb:
-        handler: src/functions/db.test
+    createUser:
+        handler: src/functions/db.createUser
         events:
             - httpApi:
-                  path: /thenamecard/testdb
+                  path: /thenamecard/createUser
                   method: post
 
     authorize:

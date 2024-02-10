@@ -4,14 +4,31 @@ import {
 	APIGatewayProxyResult,
 } from 'aws-lambda';
 
-import { BaseError, InternalError } from 'src/errors/errors';
+import { BaseError, InternalError, ValidationError } from 'src/errors/errors';
 import { Database } from 'src/db/Database';
 import { User } from 'src/entity';
+import { z } from 'zod';
 
-export const test: APIGatewayProxyHandler = async (
+const createUserBodySchema = z.object({
+	name: z.string().min(1, 'Name must be included'),
+	email: z.string().email('Invalid email'),
+});
+
+export const createUser: APIGatewayProxyHandler = async (
 	event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
 	try {
+		const body = JSON.parse(event.body || '{}');
+		try {
+			createUserBodySchema.parse(body);
+		} catch (e) {
+			console.log(e);
+			if (e instanceof Error) {
+				throw new ValidationError(e.message);
+			}
+			throw new ValidationError('Bad request');
+		}
+
 		let result: User;
 		try {
 			const database = new Database();
