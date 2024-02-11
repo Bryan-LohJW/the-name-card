@@ -31,7 +31,7 @@ import './EditProfile.scss';
 
 export const EditProfile = () => {
 	// banner stuff for future refactor
-	const [bannerColor, setBannerColor] = useState<string>('#10A5F5');
+	const [bannerColor, setBannerColor] = useState('#10A5F5');
 	const [showColorPalette, setShowColorPalette] = useState(false);
 	const [bannerImageUri, setBannerImageUri] = useState<string | null>(null);
 	const [widgetProperties, setWidgetProperties] = useState<WidgetProp[]>([]);
