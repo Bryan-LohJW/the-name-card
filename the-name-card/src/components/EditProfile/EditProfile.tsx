@@ -87,7 +87,7 @@ export const EditProfile = () => {
 		setWidgetProperties((array) => arrayMove(array, oldIndex, newIndex));
 	};
 
-	const setWidgetPropertiesWrapper = (
+	const generateSetWidgetProperties = (
 		type: WidgetType,
 		initalValue: string
 	) => {
@@ -290,14 +290,14 @@ export const EditProfile = () => {
 				<Dropdown>
 					<DropdownItem
 						label="Socials"
-						onClick={setWidgetPropertiesWrapper(
+						onClick={generateSetWidgetProperties(
 							WidgetType.Socials,
 							WidgetInitialValue.Socials
 						)}
 					/>
 					<DropdownItem
 						label="Link"
-						onClick={setWidgetPropertiesWrapper(
+						onClick={generateSetWidgetProperties(
 							WidgetType.Link,
 							WidgetInitialValue.Link
 						)}
