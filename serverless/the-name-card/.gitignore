@@ -1,0 +1,12 @@
+# Dependency directories
+node_modules/
+
+# dotenv environment variables file
+.env
+.env.test
+
+# Serverless directories
+.serverless/
+
+# DB Migration
+.migration
