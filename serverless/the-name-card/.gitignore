@@ -3,10 +3,11 @@ node_modules/
 
 # dotenv environment variables file
 .env
-.env.test
+.env.*
 
 # Serverless directories
 .serverless/
+.build
 
 # DB Migration
 .migration

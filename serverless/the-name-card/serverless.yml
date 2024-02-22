@@ -8,6 +8,7 @@ provider:
     runtime: nodejs18.x
     region: ap-southeast-1
     httpApi:
+        cors: true
         authorizers:
             jwtAuthorizer:
                 type: request
@@ -34,6 +35,18 @@ functions:
             - httpApi:
                   path: /thenamecard/createProfile
                   method: post
+
+    getPresignedUrl:
+        handler: src/functions/s3.getPresignedUrl
+        events:
+            - httpApi:
+                  path: /thenamecard/getPresignedUrl
+                  method: post
+        iamRoleStatements:
+            - Effect: Allow
+              Action:
+                  - 's3:PutObject'
+              Resource: 'arn:aws:s3:::thenamecardbucket:BUCKET_NAME}/*'
 
     authorize:
         handler: src/functions/auth.authorize
