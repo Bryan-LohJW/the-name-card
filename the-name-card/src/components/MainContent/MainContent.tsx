@@ -1,5 +1,5 @@
-import standout from './../../assets/svgs/undraw_stand_out_-1-oag.svg';
-import { Section } from '..';
+import standout from '@assets/svgs/undraw_stand_out_-1-oag.svg';
+import { Section } from '@components';
 import './MainContent.scss';
 
 const MainContent = () => {

@@ -1,4 +1,4 @@
-import imageUrl from './../../assets/svgs/undraw_portfolio_update_re_jqnp.svg';
+import imageUrl from '@assets/svgs/undraw_portfolio_update_re_jqnp.svg';
 import './Card.scss';
 
 const DUMMY_DETAILS = {

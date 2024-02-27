@@ -1,0 +1,25 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+.wrapper {
+	height: 7rem;
+}
+
+.profile-picture-wrapper {
+	height: 10rem;
+	width: 10rem;
+	border-radius: 9999px;
+	background-color: $white;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -30%);
+	border: 0.4rem solid $white;
+	overflow: hidden;
+
+	.profile-picture {
+		height: 100%;
+		width: 100%;
+
+		object-fit: cover;
+	}
+}

@@ -1,13 +1,13 @@
 @import '@styles/variables';
 @import '@styles/mixins';
 
-.link-inputs {
+.core-info {
 	position: relative;
 	display: grid;
 	gap: $x-tiny-gap;
-	padding: $x-tiny-gap 0;
-}
+	padding: 0 0 $mid-gap;
 
-.input-wrapper {
-	@include input;
+	.core-input {
+		@include input;
+	}
 }
