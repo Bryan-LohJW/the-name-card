@@ -1,17 +1,10 @@
 import { ChangeEvent, useRef, useState } from 'react';
-import { ChromePicker, ColorResult } from 'react-color';
-import OutsideClickHandler from 'react-outside-click-handler';
 import { useForm } from 'react-hook-form';
 import SortableList, { SortableItem, SortableKnob } from 'react-easy-sort';
 import arrayMove from 'array-move';
 import { IoMdArrowBack } from 'react-icons/io';
 import { FaRegAddressCard } from 'react-icons/fa';
-import {
-	IoColorPaletteOutline,
-	IoClose,
-	IoPersonOutline,
-} from 'react-icons/io5';
-import { LuImagePlus } from 'react-icons/lu';
+import { IoClose, IoPersonOutline } from 'react-icons/io5';
 import { BiMessageDetail } from 'react-icons/bi';
 import {
 	MdOutlineWorkOutline,
@@ -27,6 +20,7 @@ import {
 	WidgetItem,
 	WidgetProp,
 	WidgetType,
+	EditProfileBanner,
 } from '@components';
 import { useSaveS3 } from '@hooks/useSaveS3';
 import './EditProfile.scss';
@@ -36,41 +30,13 @@ const SAMPLE_USER_ID = '2';
 export const EditProfile = () => {
 	// banner stuff for future refactor
 	const [bannerColor, setBannerColor] = useState('#10A5F5');
-	const [showColorPalette, setShowColorPalette] = useState(false);
-	const [bannerImageUri, setBannerImageUri] = useState<{
+	const [bannerImage, setBannerImage] = useState<{
 		url: string;
 		file: File | null;
 	} | null>(null);
 	const [widgetProperties, setWidgetProperties] = useState<WidgetProp[]>([]);
 	const { saveImage } = useSaveS3();
 	const { register, handleSubmit } = useForm();
-
-	const bannerPictureInputRef = useRef<HTMLInputElement>(null);
-
-	const onColorChange = (color: ColorResult) => {
-		setBannerColor(color.hex);
-		setBannerImageUri(null);
-	};
-
-	const toggleColorPalette = () => {
-		setShowColorPalette((prev) => !prev);
-	};
-
-	const openBannerFileInput = () => {
-		bannerPictureInputRef.current?.click();
-	};
-
-	const handleBannerFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-		if (event.currentTarget.files === null) return;
-		const files = event?.target?.files;
-		if (files) {
-			const file = files[0];
-			const url = URL.createObjectURL(file);
-			setBannerImageUri({ url, file });
-		}
-	};
-
-	const bannerStyle = { backgroundColor: bannerColor };
 
 	// profile picture for future refactor
 	const [profilePictureUri, setProfilePictureUri] = useState<{
@@ -117,8 +83,8 @@ export const EditProfile = () => {
 		const promises: Promise<string>[] = [];
 		const imagesToSave: string[] = [];
 
-		if (bannerImageUri?.file) {
-			promises.push(saveImage(bannerImageUri.file));
+		if (bannerImage?.file) {
+			promises.push(saveImage(bannerImage.file));
 			imagesToSave.push('banner');
 		}
 		if (profilePictureUri?.file) {
@@ -132,12 +98,12 @@ export const EditProfile = () => {
 			banner: string | null;
 			profile: string | null;
 		} = {
-			banner: bannerImageUri?.url || null,
+			banner: bannerImage?.url || null,
 			profile: profilePictureUri?.url || null,
 		};
 		imagesToSave.forEach((val, index) => {
 			if (val === 'banner') {
-				setBannerImageUri((prev) => {
+				setBannerImage((prev) => {
 					if (!prev) return prev;
 					return {
 						...prev,
@@ -199,48 +165,12 @@ export const EditProfile = () => {
 					</div>
 					<div className="profile-builder">
 						<div className="core-profile">
-							<div className="banner" style={bannerStyle}>
-								{bannerImageUri && (
-									<img
-										src={bannerImageUri.url}
-										alt="banner-image"
-										className="banner-image"
-									/>
-								)}
-								<input
-									type="file"
-									name="banner picture"
-									style={{ display: 'none' }}
-									ref={bannerPictureInputRef}
-									accept="image/png, image/jpeg, image/jpg"
-									onChange={handleBannerFileChange}
-								/>
-								<div className="banner-setting">
-									<LuImagePlus
-										className="banner-icon"
-										onClick={openBannerFileInput}
-									/>
-									{!showColorPalette ? (
-										<IoColorPaletteOutline
-											className="banner-icon"
-											onClick={toggleColorPalette}
-										/>
-									) : (
-										<IoClose className="banner-icon" />
-									)}
-								</div>
-								{showColorPalette && (
-									<OutsideClickHandler
-										onOutsideClick={toggleColorPalette}
-									>
-										<ChromePicker
-											className="color-picker"
-											color={bannerColor}
-											onChange={onColorChange}
-										/>
-									</OutsideClickHandler>
-								)}
-							</div>
+							<EditProfileBanner
+								bannerColor={bannerColor}
+								setBannerColor={setBannerColor}
+								bannerImage={bannerImage}
+								setBannerImage={setBannerImage}
+							/>
 							<div className="wrapper">
 								<div
 									className="profile-picture-wrapper"
