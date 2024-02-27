@@ -7,30 +7,66 @@ export class Profile {
 	@PrimaryGeneratedColumn()
 	userId: number;
 
-	@Column()
-	profileImage: string;
+	@Column({
+		type: String,
+		unique: false,
+		nullable: true,
+	})
+	profileImage: string | null;
 
-	@Column()
-	bannerImage: string;
+	@Column({
+		type: String,
+		unique: false,
+		nullable: true,
+	})
+	bannerImage: string | null;
 
-	@Column()
-	bannerColor: string;
+	@Column({
+		type: String,
+		unique: false,
+		nullable: true,
+	})
+	bannerColor: string | null;
 
-	@Column()
+	@Column({
+		type: String,
+		unique: false,
+		nullable: false,
+	})
 	profileName: string;
 
-	@Column()
+	@Column({
+		type: String,
+		unique: false,
+		nullable: false,
+	})
 	bio: string;
 
-	@Column()
+	@Column({
+		type: String,
+		unique: false,
+		nullable: false,
+	})
 	designation: string;
 
-	@Column()
+	@Column({
+		type: String,
+		unique: false,
+		nullable: false,
+	})
 	phone: string;
 
-	@Column()
+	@Column({
+		type: String,
+		unique: false,
+		nullable: false,
+	})
 	profileEmail: string;
 
-	@Column()
-	widgetProps: string;
+	@Column({
+		type: String,
+		unique: false,
+		nullable: true,
+	})
+	widgetProps: string | null;
 }

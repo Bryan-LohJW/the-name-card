@@ -17,7 +17,6 @@ const s3 = new S3({
 });
 
 const getPresignedUrlBodySchema = z.object({
-	user: z.string(),
 	key: z.string(),
 	contentType: z.string(),
 });

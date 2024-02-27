@@ -21,5 +21,5 @@ export class User {
 
 	@OneToOne(() => Profile)
 	@JoinColumn()
-	profile: Profile;
+	profile: Promise<Profile>;
 }

@@ -13,7 +13,7 @@ import {
 	ValidationError,
 } from 'src/errors/errors';
 import { Database } from 'src/db/Database';
-import { User } from 'src/entity';
+import { User, Profile } from 'src/entity';
 
 const createUserBodySchema = z.object({
 	name: z.string().min(1, 'Name must be included'),
@@ -68,8 +68,8 @@ export const createUser: APIGatewayProxyHandler = async (
 
 const createProfileBodySchema = z.object({
 	userId: z.string(),
-	profileImage: z.string().optional(),
-	bannerImage: z.string().optional(),
+	profileImage: z.string().nullable(),
+	bannerImage: z.string().nullable(),
 	bannerColor: z.string(),
 	profileName: z.string().min(1, 'Name must be included'),
 	bio: z.string().min(1, 'Bio must be included'),
@@ -98,14 +98,33 @@ export const createProfile: APIGatewayProxyHandler = async (
 		}
 		try {
 			const userId = body.userId;
-			body.delete('userId');
-
 			const database = new Database();
 			const dataSource = await database.getDataSource();
-			const savedProfile = await dataSource.manager.save(body);
-
 			const user = await getUser(userId, dataSource);
-			user.profile = savedProfile;
+			console.log('Successfully retrieved user');
+
+			let profile = await user.profile;
+			console.log('Profile: ' + profile);
+
+			if (!profile) {
+				profile = new Profile();
+			}
+
+			profile.profileName = body.profileName;
+			profile.bio = body.bio;
+			profile.designation = body.designation;
+			profile.phone = body.phone;
+			profile.profileEmail = body.profileEmail;
+			profile.widgetProps = body.widgetProps;
+			profile.profileImage = body.profileImage;
+			profile.bannerImage = body.bannerImage;
+			profile.bannerColor = body.bannerColor;
+			console.log('Updated profile: ' + profile);
+
+			const savedProfile = await dataSource.manager.save(profile);
+			console.log('Saved profile');
+
+			user.profile = Promise.resolve(savedProfile);
 			await dataSource.manager.save(user);
 			return {
 				statusCode: 200,
