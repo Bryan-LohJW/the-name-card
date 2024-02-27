@@ -16,7 +16,8 @@
 			"@components/*": ["./src/components/*"],
 			"@pages/*": ["./src/pages/*"],
 			"@hooks/*": ["./src/hooks/*"],
-			"@assets/*": ["./src/assets/*"]
+			"@assets/*": ["./src/assets/*"],
+			"@styles/*": ["./src/styles/*"]
 		},
 
 		/* Bundler mode */
