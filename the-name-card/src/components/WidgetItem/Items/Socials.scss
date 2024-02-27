@@ -1,0 +1,96 @@
+@import '@styles/variables';
+
+.widget-socials {
+	display: grid;
+	padding: 0 $x-tiny-gap;
+	align-items: center;
+	background-color: $white;
+}
+
+.social-item {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
+	gap: $x-tiny-gap;
+	padding: $tiny-gap 0;
+	background-color: $white;
+	border-bottom: 1px solid $light-secondary;
+
+	.input-container {
+		display: grid;
+		gap: $xx-tiny-gap;
+		.link {
+			font-size: 0.75rem;
+			color: $secondary;
+		}
+		.input {
+			width: 90%;
+			line-height: 1.5rem;
+			font-size: 1rem;
+			padding-left: $x-tiny-gap;
+			border: 0;
+			border-bottom: 1px solid $secondary;
+			outline: none;
+			&:focus {
+				border-bottom: 2px solid black;
+			}
+		}
+	}
+}
+
+.add {
+	display: flex;
+	place-content: center;
+	position: relative;
+	justify-self: center;
+	background-color: $blue;
+	border-radius: 0.5rem;
+	margin: $tiny-gap;
+	width: 4rem;
+	height: 1.75rem;
+	.add-button {
+		color: $white;
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+	}
+	.add-options {
+		position: absolute;
+		background-color: $white;
+		padding: $small-gap;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+		width: 10rem;
+
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, -110%);
+
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+
+		.selection {
+			width: fit-content;
+			height: fit-content;
+			.icon {
+				height: 2rem;
+				width: 2rem;
+			}
+		}
+	}
+}
+
+.icon {
+	height: 2rem;
+	width: 2rem;
+}
+
+.trash {
+	height: 1.25rem;
+	width: 1.25rem;
+	color: $red;
+}
+
+.hidden {
+	display: none;
+}

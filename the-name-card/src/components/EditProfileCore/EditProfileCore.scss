@@ -1,0 +1,13 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+.core-info {
+	position: relative;
+	display: grid;
+	gap: $x-tiny-gap;
+	padding: 0 0 $mid-gap;
+
+	.core-input {
+		@include input;
+	}
+}

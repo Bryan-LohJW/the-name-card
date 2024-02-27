@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Section } from '..';
+import { Section } from '@components';
 import './CardHolder.scss';
 
 interface CardHolderProps {

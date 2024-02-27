@@ -1,19 +1,32 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { Landing, Margin } from './components';
+import { Margin } from '@components';
+import { EditProfile, Landing } from '@pages';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Landing />,
+		element: (
+			<Margin>
+				<Landing />
+			</Margin>
+		),
+	},
+	{
+		path: '/edit-profile',
+		element: <EditProfile />,
 	},
 ]);
 
+const queryCLient = new QueryClient();
+
 function App() {
 	return (
-		<Margin>
+		<QueryClientProvider client={queryCLient}>
 			<RouterProvider router={router} />
-		</Margin>
+		</QueryClientProvider>
 	);
 }
 

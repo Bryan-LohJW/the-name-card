@@ -1,0 +1,56 @@
+useDotenv: true
+
+service: the-name-card
+frameworkVersion: '3'
+
+provider:
+    name: aws
+    runtime: nodejs18.x
+    region: ap-southeast-1
+    httpApi:
+        cors: true
+        authorizers:
+            jwtAuthorizer:
+                type: request
+                functionName: authorize
+
+functions:
+    signToken:
+        handler: src/functions/auth.signToken
+        events:
+            - httpApi:
+                  path: /thenamecard/signToken
+                  method: post
+
+    createUser:
+        handler: src/functions/db.createUser
+        events:
+            - httpApi:
+                  path: /thenamecard/createUser
+                  method: post
+
+    createProfile:
+        handler: src/functions/db.createProfile
+        events:
+            - httpApi:
+                  path: /thenamecard/createProfile
+                  method: post
+
+    getPresignedUrl:
+        handler: src/functions/s3.getPresignedUrl
+        events:
+            - httpApi:
+                  path: /thenamecard/getPresignedUrl
+                  method: post
+        iamRoleStatements:
+            - Effect: Allow
+              Action:
+                  - 's3:PutObject'
+              Resource: 'arn:aws:s3:::thenamecardbucket:BUCKET_NAME}/*'
+
+    authorize:
+        handler: src/functions/auth.authorize
+
+plugins:
+    - serverless-plugin-typescript
+    - serverless-dotenv-plugin
