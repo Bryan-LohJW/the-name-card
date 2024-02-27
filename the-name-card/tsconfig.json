@@ -12,7 +12,11 @@
 			"@components": ["./src/components"],
 			"@pages": ["./src/pages"],
 			"@hooks": ["./src/hooks"],
-			"@assets": ["./src/assets"]
+			"@assets": ["./src/assets"],
+			"@components/*": ["./src/components/*"],
+			"@pages/*": ["./src/pages/*"],
+			"@hooks/*": ["./src/hooks/*"],
+			"@assets/*": ["./src/assets/*"]
 		},
 
 		/* Bundler mode */
