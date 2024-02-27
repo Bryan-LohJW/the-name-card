@@ -1,6 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { EditProfile, Landing, Margin } from './components';
+import { Margin } from '@components';
+import { EditProfile, Landing } from '@pages';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([

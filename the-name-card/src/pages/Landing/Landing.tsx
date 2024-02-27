@@ -1,4 +1,4 @@
-import { Header, MainContent, Card, CardHolder, Footer } from '..';
+import { Header, MainContent, Card, CardHolder, Footer } from '@components';
 import './Landing.scss';
 
 const Landing = () => {

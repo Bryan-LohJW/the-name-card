@@ -1,6 +1,9 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { useForm } from 'react-hook-form';
+import SortableList, { SortableItem, SortableKnob } from 'react-easy-sort';
+import arrayMove from 'array-move';
 import { IoMdArrowBack } from 'react-icons/io';
 import { FaRegAddressCard } from 'react-icons/fa';
 import {
@@ -16,8 +19,6 @@ import {
 	MdPhone,
 	MdDragIndicator,
 } from 'react-icons/md';
-import SortableList, { SortableItem, SortableKnob } from 'react-easy-sort';
-import arrayMove from 'array-move';
 
 import {
 	Dropdown,
@@ -26,10 +27,9 @@ import {
 	WidgetItem,
 	WidgetProp,
 	WidgetType,
-} from '..';
+} from '@components';
+import { useSaveS3 } from '@hooks/useSaveS3';
 import './EditProfile.scss';
-import { useSaveS3 } from '../../hooks/useSaveS3';
-import { useForm } from 'react-hook-form';
 
 const SAMPLE_USER_ID = '2';
 
