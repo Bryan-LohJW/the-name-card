@@ -9,3 +9,4 @@ export * from './WidgetItem/WidgetItem';
 export * from './WidgetItem/Items';
 export * from './Dropdown';
 export * from './EditProfileBanner/EditProfileBanner';
+export * from './EditProfileImage/EditProfileImage';

@@ -1,10 +1,10 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SortableList, { SortableItem, SortableKnob } from 'react-easy-sort';
 import arrayMove from 'array-move';
 import { IoMdArrowBack } from 'react-icons/io';
 import { FaRegAddressCard } from 'react-icons/fa';
-import { IoClose, IoPersonOutline } from 'react-icons/io5';
+import { IoClose } from 'react-icons/io5';
 import { BiMessageDetail } from 'react-icons/bi';
 import {
 	MdOutlineWorkOutline,
@@ -21,6 +21,7 @@ import {
 	WidgetProp,
 	WidgetType,
 	EditProfileBanner,
+	EditProfileImage,
 } from '@components';
 import { useSaveS3 } from '@hooks/useSaveS3';
 import './EditProfile.scss';
@@ -39,25 +40,10 @@ export const EditProfile = () => {
 	const { register, handleSubmit } = useForm();
 
 	// profile picture for future refactor
-	const [profilePictureUri, setProfilePictureUri] = useState<{
+	const [profilePicture, setProfilePicture] = useState<{
 		url: string;
 		file: File | null;
 	} | null>(null);
-	const profilePictureInputRef = useRef<HTMLInputElement>(null);
-
-	const handleProfileFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-		if (event.currentTarget.files === null) return;
-		const files = event?.target?.files;
-		if (files) {
-			const file = files[0];
-			const url = URL.createObjectURL(file);
-			setProfilePictureUri({ url, file });
-		}
-	};
-
-	const openProfileFileInput = () => {
-		profilePictureInputRef.current?.click();
-	};
 
 	const onSortEnd = (oldIndex: number, newIndex: number) => {
 		setWidgetProperties((array) => arrayMove(array, oldIndex, newIndex));
@@ -87,8 +73,8 @@ export const EditProfile = () => {
 			promises.push(saveImage(bannerImage.file));
 			imagesToSave.push('banner');
 		}
-		if (profilePictureUri?.file) {
-			promises.push(saveImage(profilePictureUri.file));
+		if (profilePicture?.file) {
+			promises.push(saveImage(profilePicture.file));
 			imagesToSave.push('profile');
 		}
 
@@ -99,7 +85,7 @@ export const EditProfile = () => {
 			profile: string | null;
 		} = {
 			banner: bannerImage?.url || null,
-			profile: profilePictureUri?.url || null,
+			profile: profilePicture?.url || null,
 		};
 		imagesToSave.forEach((val, index) => {
 			if (val === 'banner') {
@@ -114,7 +100,7 @@ export const EditProfile = () => {
 				res.banner = values[index];
 			}
 			if (val === 'profile') {
-				setProfilePictureUri((prev) => {
+				setProfilePicture((prev) => {
 					if (!prev) return prev;
 					return {
 						...prev,
@@ -171,31 +157,10 @@ export const EditProfile = () => {
 								bannerImage={bannerImage}
 								setBannerImage={setBannerImage}
 							/>
-							<div className="wrapper">
-								<div
-									className="profile-picture-wrapper"
-									onClick={openProfileFileInput}
-								>
-									{profilePictureUri ? (
-										<img
-											src={profilePictureUri.url}
-											alt="profile picture"
-											className="profile-picture"
-										/>
-									) : (
-										<IoPersonOutline className="profile-picture" />
-									)}
-
-									<input
-										type="file"
-										name="banner picture"
-										style={{ display: 'none' }}
-										ref={profilePictureInputRef}
-										accept="image/png, image/jpeg, image/jpg"
-										onChange={handleProfileFileChange}
-									/>
-								</div>
-							</div>
+							<EditProfileImage
+								profilePicture={profilePicture}
+								setProfilePicture={setProfilePicture}
+							/>
 							<div className="core-info">
 								<div className="core-input">
 									<label className="label" htmlFor="name">
