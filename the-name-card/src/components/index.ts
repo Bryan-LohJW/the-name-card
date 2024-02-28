@@ -11,3 +11,4 @@ export * from './Dropdown';
 export * from './EditProfileBanner/EditProfileBanner';
 export * from './EditProfileImage/EditProfileImage';
 export * from './EditProfileCore/EditProfileCore';
+export * from './Modal/Modal';
