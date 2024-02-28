@@ -1,0 +1,26 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+.login-card {
+	background-color: $white;
+	padding: $small-gap $x-small-gap;
+	display: flex;
+	flex-direction: column;
+	gap: $small-gap;
+	border-radius: 0.5rem;
+	.login-header {
+		display: flex;
+		flex-direction: column;
+		gap: $x-tiny-gap;
+		align-items: center;
+		.title {
+			font-size: xx-large;
+			font-weight: 500;
+		}
+		.description {
+			color: $secondary;
+		}
+	}
+	.body {
+	}
+}
