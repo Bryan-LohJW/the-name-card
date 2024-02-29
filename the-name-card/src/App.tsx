@@ -4,6 +4,7 @@ import { Margin } from '@components';
 import { EditProfile, Landing } from '@pages';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const router = createBrowserRouter([
 	{
@@ -24,9 +25,11 @@ const queryCLient = new QueryClient();
 
 function App() {
 	return (
-		<QueryClientProvider client={queryCLient}>
-			<RouterProvider router={router} />
-		</QueryClientProvider>
+		<GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+			<QueryClientProvider client={queryCLient}>
+				<RouterProvider router={router} />
+			</QueryClientProvider>
+		</GoogleOAuthProvider>
 	);
 }
 
