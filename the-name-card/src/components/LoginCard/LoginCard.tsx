@@ -1,3 +1,4 @@
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import './LoginCard.scss';
 
 const LoginCard = () => {
@@ -8,7 +9,14 @@ const LoginCard = () => {
 				<p className="description">Select your preferred provider</p>
 			</div>
 			<div className="body">
-				<button>Login with google</button>
+				<GoogleLogin
+					onSuccess={(credentialResponse: CredentialResponse) => {
+						console.log(credentialResponse);
+					}}
+					onError={() => {
+						console.log('Error logging in');
+					}}
+				/>
 			</div>
 		</div>
 	);
