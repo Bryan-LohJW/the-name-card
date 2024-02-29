@@ -4,12 +4,20 @@ import './Modal.scss';
 
 interface ModalProp {
 	children: ReactNode;
+	outsideClick?: () => void;
 }
 
-const Modal: React.FC<ModalProp> = ({ children }) => {
+const Modal: React.FC<ModalProp> = ({ children, outsideClick }) => {
 	return (
-		<div className="modal">
-			<div className="modal-content">{children}</div>
+		<div className="modal" onClick={() => outsideClick && outsideClick()}>
+			<div
+				className="modal-content"
+				onClick={(event) => {
+					event.stopPropagation();
+				}}
+			>
+				{children}
+			</div>
 		</div>
 	);
 };
