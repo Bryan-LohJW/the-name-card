@@ -1,10 +1,11 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Provider } from 'react-redux';
 
 import { Margin } from '@components';
 import { EditProfile, Landing } from '@pages';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { store } from '@store/store';
 
 const router = createBrowserRouter([
 	{
@@ -26,9 +27,11 @@ const queryCLient = new QueryClient();
 function App() {
 	return (
 		<GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-			<QueryClientProvider client={queryCLient}>
-				<RouterProvider router={router} />
-			</QueryClientProvider>
+			<Provider store={store}>
+				<QueryClientProvider client={queryCLient}>
+					<RouterProvider router={router} />
+				</QueryClientProvider>
+			</Provider>
 		</GoogleOAuthProvider>
 	);
 }

@@ -28,6 +28,10 @@ export default defineConfig({
 				find: '@styles',
 				replacement: path.resolve(__dirname, 'src/styles'),
 			},
+			{
+				find: '@store',
+				replacement: path.resolve(__dirname, 'src/store'),
+			},
 		],
 	},
 });
