@@ -13,11 +13,13 @@
 			"@pages": ["./src/pages"],
 			"@hooks": ["./src/hooks"],
 			"@assets": ["./src/assets"],
+			"@store": ["./src/store"],
 			"@components/*": ["./src/components/*"],
 			"@pages/*": ["./src/pages/*"],
 			"@hooks/*": ["./src/hooks/*"],
 			"@assets/*": ["./src/assets/*"],
-			"@styles/*": ["./src/styles/*"]
+			"@styles/*": ["./src/styles/*"],
+			"@store/*": ["./src/store/*"]
 		},
 
 		/* Bundler mode */
