@@ -1,10 +1,13 @@
 import {
+	APIGatewayAuthorizerEvent,
 	APIGatewayAuthorizerResult,
+	APIGatewayEvent,
 	APIGatewayProxyEvent,
 	APIGatewayProxyHandler,
 	APIGatewayProxyResult,
 	APIGatewayTokenAuthorizerEvent,
 	APIGatewayTokenAuthorizerHandler,
+	CustomAuthorizerEvent,
 	PolicyDocument,
 } from 'aws-lambda';
 import { z } from 'zod';
@@ -12,6 +15,7 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 config();
 
+import { verifyGoogleToken } from 'src/auth/googleAuth';
 import {
 	AuthError,
 	BaseError,
@@ -77,26 +81,40 @@ export const signToken: APIGatewayProxyHandler = async (
 };
 
 export const authorize: APIGatewayTokenAuthorizerHandler = async (
-	event: APIGatewayTokenAuthorizerEvent
+	event: CustomAuthorizerEvent,
+	context,
+	callback
 ): Promise<APIGatewayAuthorizerResult> => {
 	try {
 		console.log('Starting token authorization');
 
-		if (!event.authorizationToken) throw new AuthError('Missing token');
+		const token = event.headers?.authorization;
 
-		const decoded = validateToken(event.authorizationToken.substring(7));
-		if (decoded === null) throw new AuthError('Invalid token');
+		if (!token) throw new AuthError('Missing token');
 
-		const policyDocument = generatePolicy('allow', event.methodArn);
+		let userId: string;
 
+		try {
+			userId = await verifyGoogleToken(token.substring(6));
+			console.log(userId);
+		} catch (e) {
+			console.log(e);
+			throw new AuthError('Invalid token');
+		}
+
+		// @ts-ignore
+		const policyDocument = generatePolicy('allow', event.routeArn);
+		console.log('Authorization success');
 		return {
-			principalId: decoded.sub || 'user',
+			principalId: userId || 'user',
 			policyDocument,
 		};
 	} catch (e: any) {
 		console.error(e);
-		if (e instanceof BaseError)
+		if (e instanceof BaseError) {
+			callback(e.message);
 			throw new BaseError(e.name, e.httpCode, e.message, e.isOperational);
+		}
 		throw new BaseError(
 			'Internal server error',
 			HttpStatusCode.INTERNAL_SERVER,
