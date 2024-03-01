@@ -28,6 +28,8 @@ functions:
             - httpApi:
                   path: /thenamecard/createUser
                   method: post
+                  authorizer:
+                      name: jwtAuthorizer
 
     createProfile:
         handler: src/functions/db.createProfile
@@ -35,6 +37,8 @@ functions:
             - httpApi:
                   path: /thenamecard/createProfile
                   method: post
+                  authorizer:
+                      name: jwtAuthorizer
 
     getPresignedUrl:
         handler: src/functions/s3.getPresignedUrl
@@ -42,11 +46,8 @@ functions:
             - httpApi:
                   path: /thenamecard/getPresignedUrl
                   method: post
-        iamRoleStatements:
-            - Effect: Allow
-              Action:
-                  - 's3:PutObject'
-              Resource: 'arn:aws:s3:::thenamecardbucket:BUCKET_NAME}/*'
+                  authorizer:
+                      name: jwtAuthorizer
 
     authorize:
         handler: src/functions/auth.authorize
