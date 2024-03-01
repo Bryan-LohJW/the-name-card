@@ -1,11 +1,8 @@
 import {
-	APIGatewayAuthorizerEvent,
 	APIGatewayAuthorizerResult,
-	APIGatewayEvent,
 	APIGatewayProxyEvent,
 	APIGatewayProxyHandler,
 	APIGatewayProxyResult,
-	APIGatewayTokenAuthorizerEvent,
 	APIGatewayTokenAuthorizerHandler,
 	CustomAuthorizerEvent,
 	PolicyDocument,
