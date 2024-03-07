@@ -49,6 +49,13 @@ functions:
                   authorizer:
                       name: jwtAuthorizer
 
+    signIn:
+        handler: src/functions/auth.signIn
+        events:
+            - httpApi:
+                  path: /thenamecard/signin
+                  method: post
+
     authorize:
         handler: src/functions/auth.authorize
 
