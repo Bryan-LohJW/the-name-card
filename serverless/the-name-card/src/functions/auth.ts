@@ -17,9 +17,14 @@ import {
 	AuthError,
 	BaseError,
 	HttpStatusCode,
+	InternalError,
 	ProcessEnvironmentError,
 	ValidationError,
 } from 'src/errors/errors';
+import { TokenPayload } from 'google-auth-library';
+import { User } from 'src/entity';
+import { UserRepository } from 'src/db/Repository/UserRepository';
+import { QueryFailedError } from 'typeorm';
 
 const signTokenBodySchema = z.object({
 	secret: z.string(),
@@ -89,11 +94,11 @@ export const authorize: APIGatewayTokenAuthorizerHandler = async (
 
 		if (!token) throw new AuthError('Missing token');
 
-		let userId: string;
+		let tokenPayload: TokenPayload;
 
 		try {
-			userId = await verifyGoogleToken(token.substring(6));
-			console.log(userId);
+			tokenPayload = await verifyGoogleToken(token.substring(6));
+			console.log(tokenPayload);
 		} catch (e) {
 			console.log(e);
 			throw new AuthError('Invalid token');
@@ -103,7 +108,7 @@ export const authorize: APIGatewayTokenAuthorizerHandler = async (
 		const policyDocument = generatePolicy('allow', event.routeArn);
 		console.log('Authorization success');
 		return {
-			principalId: userId || 'user',
+			principalId: tokenPayload.sub || 'user',
 			policyDocument,
 		};
 	} catch (e: any) {
@@ -135,17 +140,47 @@ const generatePolicy = (effect: string, resource: string): PolicyDocument => {
 	return policyDocument;
 };
 
-const validateToken = (token: string): any => {
-	console.log('Starting token validation');
+const signInBodySchema = z.object({
+	credential: z.string(),
+});
+
+export const signIn: APIGatewayProxyHandler = async (
+	event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
 	try {
-		const JWT_SECRET = process.env.JWT_SECRET;
-		if (!JWT_SECRET)
-			throw new ProcessEnvironmentError(
-				'Error getting process environment: JWT_SECRET'
-			);
-		return jwt.verify(token, JWT_SECRET);
-	} catch (e: any) {
-		console.error(e);
-		return null;
+		const requestBody = JSON.parse(event.body || '{}');
+		try {
+			signInBodySchema.parse(requestBody);
+		} catch (e) {
+			console.log(e);
+			throw new ValidationError('Bad request');
+		}
+		const payload = await verifyGoogleToken(requestBody.credential);
+		const user = new User();
+		user.email = payload.email || '';
+		user.name = payload.name || '';
+		let savedUser: User;
+		try {
+			const userRepository = new UserRepository();
+			savedUser = await userRepository.upsertUserByEmail(user);
+		} catch (e) {
+			throw new InternalError('Unable to save user');
+		}
+		return {
+			statusCode: 200,
+			body: JSON.stringify({ user: savedUser }),
+		};
+	} catch (e) {
+		console.log(e);
+		if (e instanceof BaseError) {
+			return {
+				statusCode: e.httpCode,
+				body: JSON.stringify({ message: e.message }),
+			};
+		}
+		return {
+			statusCode: 500,
+			body: JSON.stringify({ message: 'Internal server error' }),
+		};
 	}
 };
