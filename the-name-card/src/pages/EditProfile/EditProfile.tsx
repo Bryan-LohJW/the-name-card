@@ -16,13 +16,16 @@ import {
 	EditProfileBanner,
 	EditProfileImage,
 	EditProfileCore,
+	Modal,
+	LoginCard,
 } from '@components';
 import { useSaveS3 } from '@hooks/useSaveS3';
 import './EditProfile.scss';
-
-const SAMPLE_USER_ID = '2';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store/store';
 
 export const EditProfile = () => {
+	const [showLogin, setShowLogin] = useState(false);
 	// banner stuff for future refactor
 	const [bannerColor, setBannerColor] = useState('#10A5F5');
 	const [bannerImage, setBannerImage] = useState<{
@@ -30,14 +33,20 @@ export const EditProfile = () => {
 		file: File | null;
 	} | null>(null);
 	const [widgetProperties, setWidgetProperties] = useState<WidgetProp[]>([]);
-	const { saveImage } = useSaveS3();
-	const methods = useForm();
 
 	// profile picture for future refactor
 	const [profilePicture, setProfilePicture] = useState<{
 		url: string;
 		file: File | null;
 	} | null>(null);
+
+	const { saveImage } = useSaveS3();
+	const methods = useForm();
+	const isAuthenticated = useSelector(
+		(state: RootState) => state.auth.isAuthenticated
+	);
+	const userEmail = useSelector((state: RootState) => state.auth.email);
+	const googleToken = useSelector((state: RootState) => state.auth.token);
 
 	const onSortEnd = (oldIndex: number, newIndex: number) => {
 		setWidgetProperties((array) => arrayMove(array, oldIndex, newIndex));
@@ -109,9 +118,14 @@ export const EditProfile = () => {
 	};
 
 	const onSubmit = methods.handleSubmit(async (data) => {
+		if (!isAuthenticated) {
+			setShowLogin(true);
+			return;
+		}
+
 		const imageUrl = await submitProfile();
 		const requestBody = {
-			userId: SAMPLE_USER_ID,
+			userEmail: userEmail,
 			profileImage: imageUrl.profile,
 			bannerImage: imageUrl.banner,
 			bannerColor: bannerColor,
@@ -126,6 +140,9 @@ export const EditProfile = () => {
 		const response = await fetch(import.meta.env.VITE_SAVE_PROFILE_URL, {
 			method: 'POST',
 			body: JSON.stringify(requestBody),
+			headers: {
+				Authorization: 'Basic ' + googleToken,
+			},
 		});
 
 		const body = await response.json();
@@ -231,6 +248,15 @@ export const EditProfile = () => {
 					</div>
 				</form>
 			</FormProvider>
+			{showLogin && (
+				<Modal>
+					<LoginCard
+						onSuccess={() => {
+							setShowLogin(false);
+						}}
+					/>
+				</Modal>
+			)}
 		</>
 	);
 };
