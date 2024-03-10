@@ -1,8 +1,10 @@
-import { OAuth2Client } from 'google-auth-library';
+import { OAuth2Client, TokenPayload } from 'google-auth-library';
 
 import { AuthError } from 'src/errors/errors';
 
-export const verifyGoogleToken = async (token: string) => {
+export const verifyGoogleToken = async (
+	token: string
+): Promise<TokenPayload> => {
 	const client = new OAuth2Client();
 
 	const ticket = await client.verifyIdToken({
@@ -11,6 +13,5 @@ export const verifyGoogleToken = async (token: string) => {
 	});
 	const payload = ticket.getPayload();
 	if (!payload) throw new AuthError('Undefined payload');
-	const userId = payload['sub'];
-	return userId;
+	return payload;
 };
