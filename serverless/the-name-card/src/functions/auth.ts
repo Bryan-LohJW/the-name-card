@@ -9,6 +9,7 @@ import {
 } from 'aws-lambda';
 import { z } from 'zod';
 import jwt from 'jsonwebtoken';
+import { TokenPayload } from 'google-auth-library';
 import { config } from 'dotenv';
 config();
 
@@ -21,10 +22,8 @@ import {
 	ProcessEnvironmentError,
 	ValidationError,
 } from 'src/errors/errors';
-import { TokenPayload } from 'google-auth-library';
 import { User } from 'src/entity';
 import { UserRepository } from 'src/db/Repository/UserRepository';
-import { QueryFailedError } from 'typeorm';
 
 const signTokenBodySchema = z.object({
 	secret: z.string(),

@@ -1,6 +1,6 @@
-import { NotFoundError } from 'src/errors/errors';
-import { Database } from 'src/db/Database';
 import { Profile, User } from 'src/entity';
+import { Database } from 'src/db/Database';
+import { NotFoundError } from 'src/errors/errors';
 
 export class ProfileRepository {
 	private database: Database;

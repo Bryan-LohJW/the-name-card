@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 import {
 	Entity,
 	Column,
@@ -6,6 +7,7 @@ import {
 	OneToOne,
 	JoinColumn,
 } from 'typeorm';
+
 import { Profile } from 'src/entity/';
 
 @Entity()
