@@ -31,6 +31,7 @@
 }
 
 @mixin call-to-action {
+	cursor: pointer;
 	width: 100%;
 	padding: $x-tiny-gap 0;
 
@@ -45,6 +46,10 @@
 
 	@media (min-width: $min-width-sm) {
 		padding: $x-tiny-gap $small-gap;
+	}
+
+	&:hover {
+		filter: contrast(0.8);
 	}
 }
 

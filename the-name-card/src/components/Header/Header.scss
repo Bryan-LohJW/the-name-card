@@ -28,6 +28,16 @@
 
 .nav-desktop {
 	display: none;
+	align-items: center;
+
+	.welcome-msg {
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%, 0);
+		font-size: x-large;
+		font-weight: 500;
+		text-wrap: nowrap;
+	}
 
 	.menu-list {
 		margin: 0 $small-gap;
@@ -40,6 +50,11 @@
 
 	.list-item {
 		white-space: nowrap;
+	}
+
+	.list-item:hover {
+		cursor: pointer;
+		text-decoration: underline;
 	}
 }
 
@@ -64,6 +79,12 @@
 		padding: $tiny-gap;
 
 		transition: left 0.4s ease-in-out, right 0.4s ease-in-out;
+
+		.welcome-msg {
+			font-size: large;
+			font-weight: 500;
+			text-wrap: nowrap;
+		}
 
 		.close {
 			position: absolute;

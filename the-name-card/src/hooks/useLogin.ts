@@ -1,10 +1,11 @@
+import { useDispatch } from 'react-redux';
+
 import {
 	saveEmail,
 	saveName,
 	saveToken,
 	setAuthenticated,
 } from '@store/slice/authStore';
-import { useDispatch } from 'react-redux';
 
 type LoginResponseBody = {
 	user: {

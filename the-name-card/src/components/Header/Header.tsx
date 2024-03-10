@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { BsPersonVcardFill, BsList, BsXLg } from 'react-icons/bs';
 
-import './Header.scss';
 import { LoginCard, Modal } from '@components';
+import './Header.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store/store';
 
 const Header = () => {
 	const [isMenuOpen, setMenuOpen] = useState(false);
@@ -16,6 +18,11 @@ const Header = () => {
 		setLoginOpen(!isLoginOpen);
 	};
 
+	const isAuthenticated = useSelector(
+		(state: RootState) => state.auth.isAuthenticated
+	);
+	const userName = useSelector((state: RootState) => state.auth.name) || '';
+
 	return (
 		<>
 			<header className="header">
@@ -24,16 +31,20 @@ const Header = () => {
 					<p className="product-name">The Name Card</p>
 				</h1>
 				<div className="nav-desktop">
+					{userName && (
+						<p className="welcome-msg">Welcome{' ' + userName}</p>
+					)}
 					<ul className="menu-list">
 						<li className="list-item">About</li>
 						<li className="list-item">Try</li>
-						<li className="list-item" onClick={toggleLogin}>
-							Sign Up
-						</li>
 					</ul>
-					<div className="call-to-action" onClick={toggleLogin}>
-						Sign Up
-					</div>
+					{isAuthenticated ? (
+						<div className="call-to-action">Profile</div>
+					) : (
+						<div className="call-to-action" onClick={toggleLogin}>
+							Sign Up
+						</div>
+					)}
 				</div>
 				<div className="nav-mobile">
 					<div className="hamburger" onClick={toggleMenu}>
@@ -51,16 +62,25 @@ const Header = () => {
 							<BsPersonVcardFill className="logo" />
 							<p className="product-name">The Name Card</p>
 						</h1>
+						{userName && (
+							<p className="welcome-msg">
+								Welcome{' ' + userName}
+							</p>
+						)}
 						<ul className="menu-list">
 							<li className="list-item">About</li>
 							<li className="list-item">Try</li>
-							<li className="list-item" onClick={toggleLogin}>
-								Sign Up
-							</li>
 						</ul>
-						<div className="call-to-action" onClick={toggleLogin}>
-							Sign Up
-						</div>
+						{isAuthenticated ? (
+							<div className="call-to-action">Profile</div>
+						) : (
+							<div
+								className="call-to-action"
+								onClick={toggleLogin}
+							>
+								Sign Up
+							</div>
+						)}
 					</nav>
 				</div>
 			</header>

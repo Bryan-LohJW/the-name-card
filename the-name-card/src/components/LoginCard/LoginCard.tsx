@@ -1,10 +1,8 @@
 import React from 'react';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
-import { useDispatch } from 'react-redux';
 
-import { logout } from '@store/slice/authStore';
-import './LoginCard.scss';
 import { useLogin } from '@hooks/useLogin';
+import './LoginCard.scss';
 
 interface LoginCardProp {
 	onSuccess: () => void;
@@ -15,8 +13,7 @@ const LoginCard: React.FC<LoginCardProp> = ({ onSuccess }) => {
 
 	const googleOnSuccess = async (credentialResponse: CredentialResponse) => {
 		try {
-			console.log(credentialResponse);
-			login('google', credentialResponse.credential || '');
+			await login('google', credentialResponse.credential || '');
 			onSuccess();
 		} catch (e) {
 			console.log(e);
