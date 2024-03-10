@@ -23,7 +23,7 @@ functions:
                   method: post
 
     createUser:
-        handler: src/functions/db.createUser
+        handler: src/functions/user.createUser
         events:
             - httpApi:
                   path: /thenamecard/createUser
@@ -32,7 +32,7 @@ functions:
                       name: jwtAuthorizer
 
     createProfile:
-        handler: src/functions/db.createProfile
+        handler: src/functions/profile.createProfile
         events:
             - httpApi:
                   path: /thenamecard/createProfile
