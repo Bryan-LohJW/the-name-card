@@ -13,7 +13,7 @@ const LoginCard: React.FC<LoginCardProp> = ({ onSuccess }) => {
 
 	const googleOnSuccess = async (credentialResponse: CredentialResponse) => {
 		try {
-			login('google', credentialResponse.credential || '');
+			await login('google', credentialResponse.credential || '');
 			onSuccess();
 		} catch (e) {
 			console.log(e);
