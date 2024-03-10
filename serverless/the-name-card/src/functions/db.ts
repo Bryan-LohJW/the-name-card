@@ -13,6 +13,8 @@ import {
 	ValidationError,
 } from 'src/errors/errors';
 import { Database } from 'src/db/Database';
+import { UserRepository } from 'src/db/Repository/UserRepository';
+import { ProfileRepository } from 'src/db/Repository/ProfileRepository';
 import { User, Profile } from 'src/entity';
 
 const createUserBodySchema = z.object({
@@ -67,7 +69,7 @@ export const createUser: APIGatewayProxyHandler = async (
 };
 
 const createProfileBodySchema = z.object({
-	userId: z.string(),
+	userEmail: z.string(),
 	profileImage: z.string().nullable(),
 	bannerImage: z.string().nullable(),
 	bannerColor: z.string(),
@@ -97,10 +99,11 @@ export const createProfile: APIGatewayProxyHandler = async (
 			throw new ValidationError('Bad request');
 		}
 		try {
-			const userId = body.userId;
-			const database = new Database();
-			const dataSource = await database.getDataSource();
-			const user = await getUser(userId, dataSource);
+			const userRepository = new UserRepository();
+			const profileRepository = new ProfileRepository();
+			const userEmail = body.userEmail;
+			const user = await userRepository.getUserByEmail(userEmail);
+			if (!user) throw new NotFoundError('User not found');
 			console.log('Successfully retrieved user');
 
 			let profile = await user.profile;
@@ -121,18 +124,18 @@ export const createProfile: APIGatewayProxyHandler = async (
 			profile.bannerColor = body.bannerColor;
 			console.log('Updated profile: ' + profile);
 
-			const savedProfile = await dataSource.manager.save(profile);
+			const savedProfile = await profileRepository.saveProfile(profile);
 			console.log('Saved profile');
 
 			user.profile = Promise.resolve(savedProfile);
-			await dataSource.manager.save(user);
+			await userRepository.saveUser(user);
 			return {
 				statusCode: 200,
 				body: JSON.stringify({ message: 'Success', savedProfile }),
 			};
 		} catch (e) {
 			console.log(e);
-			throw new InternalError('Error while accessing database');
+			throw new InternalError('Error while saving profile');
 		}
 	} catch (e) {
 		console.log(e);
@@ -146,10 +149,4 @@ export const createProfile: APIGatewayProxyHandler = async (
 			body: JSON.stringify({ message: 'Internal Server Error' }),
 		};
 	}
-};
-
-const getUser = async (userId: number, database: DataSource): Promise<User> => {
-	const user = await database.getRepository(User).findOneBy({ id: userId });
-	if (!user) throw new NotFoundError('User not found');
-	return user;
 };
