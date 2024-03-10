@@ -1,7 +1,29 @@
+import React from 'react';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
-import './LoginCard.scss';
+import { useDispatch } from 'react-redux';
 
-const LoginCard = () => {
+import { logout } from '@store/slice/authStore';
+import './LoginCard.scss';
+import { useLogin } from '@hooks/useLogin';
+
+interface LoginCardProp {
+	onSuccess: () => void;
+}
+
+const LoginCard: React.FC<LoginCardProp> = ({ onSuccess }) => {
+	const login = useLogin();
+
+	const googleOnSuccess = async (credentialResponse: CredentialResponse) => {
+		try {
+			console.log(credentialResponse);
+			login('google', credentialResponse.credential || '');
+			onSuccess();
+		} catch (e) {
+			console.log(e);
+			// give an error message about login in
+		}
+	};
+
 	return (
 		<div className="login-card">
 			<div className="login-header">
@@ -10,9 +32,7 @@ const LoginCard = () => {
 			</div>
 			<div className="body">
 				<GoogleLogin
-					onSuccess={(credentialResponse: CredentialResponse) => {
-						console.log(credentialResponse);
-					}}
+					onSuccess={googleOnSuccess}
 					onError={() => {
 						console.log('Error logging in');
 					}}
