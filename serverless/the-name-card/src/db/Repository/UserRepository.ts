@@ -1,5 +1,5 @@
-import { Database } from 'src/db/Database';
 import { User } from 'src/entity';
+import { Database } from 'src/db/Database';
 
 export class UserRepository {
 	private database: Database;
