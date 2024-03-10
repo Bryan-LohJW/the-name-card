@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { BsPersonVcardFill, BsList, BsXLg } from 'react-icons/bs';
 
-import './Header.scss';
 import { LoginCard, Modal } from '@components';
+import './Header.scss';
 
 const Header = () => {
 	const [isMenuOpen, setMenuOpen] = useState(false);
