@@ -24,10 +24,16 @@ export const authSlice = createSlice({
 		setAuthenticated: (state, action: PayloadAction<boolean>) => {
 			state.isAuthenticated = action.payload;
 		},
+		logout: (state) => {
+			state.token = '';
+			state.name = '';
+			state.email = '';
+			state.isAuthenticated = false;
+		},
 	},
 });
 
-export const { saveToken, saveName, saveEmail, setAuthenticated } =
+export const { saveToken, saveName, saveEmail, setAuthenticated, logout } =
 	authSlice.actions;
 
 export default authSlice.reducer;
