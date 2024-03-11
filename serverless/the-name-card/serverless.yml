@@ -40,6 +40,13 @@ functions:
                   authorizer:
                       name: jwtAuthorizer
 
+    getProfile:
+        handler: src/functions/profile.getProfile
+        events:
+            - httpApi:
+                  path: /thenamecard/getProfile
+                  method: post
+
     getPresignedUrl:
         handler: src/functions/s3.getPresignedUrl
         events:
