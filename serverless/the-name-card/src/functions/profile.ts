@@ -97,3 +97,58 @@ export const createProfile: APIGatewayProxyHandler = async (
 		};
 	}
 };
+
+const getProfileBodySchema = z.object({
+	type: z.enum(['email']),
+	identifier: z.string(),
+});
+
+export const getProfile: APIGatewayProxyHandler = async (
+	event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+	try {
+		const body = JSON.parse(event.body || '{}');
+		try {
+			getProfileBodySchema.parse(body);
+		} catch (e) {
+			console.log(e);
+			if (e instanceof Error) {
+				throw new ValidationError(e.message);
+			}
+			throw new ValidationError('Bad request');
+		}
+		try {
+			const profileRepository = new ProfileRepository();
+			let profile: Profile | null = null;
+			if (body.type === 'email') {
+				profile = await profileRepository.getProfileByUserEmail(
+					body.identifier
+				);
+			}
+			if (body.type === 'id') {
+				profile = await profileRepository.getProfile(body.identifier);
+			}
+			if (!profile) {
+				throw new NotFoundError('Profile not found');
+			}
+			return {
+				statusCode: 200,
+				body: JSON.stringify({ profile }),
+			};
+		} catch (e) {
+			console.log(e);
+			throw new InternalError('Error while retrieving profile');
+		}
+	} catch (e) {
+		console.log(e);
+		if (e instanceof BaseError)
+			return {
+				statusCode: e.httpCode,
+				body: JSON.stringify({ message: e.message }),
+			};
+		return {
+			statusCode: 500,
+			body: JSON.stringify({ message: 'Internal Server Error' }),
+		};
+	}
+};

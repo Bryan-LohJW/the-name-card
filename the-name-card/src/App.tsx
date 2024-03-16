@@ -4,7 +4,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Provider } from 'react-redux';
 
 import { Margin } from '@components';
-import { EditProfile, Landing } from '@pages';
+import { EditProfile, Landing, Profile } from '@pages';
 import { store } from '@store/store';
 
 const router = createBrowserRouter([
@@ -19,6 +19,10 @@ const router = createBrowserRouter([
 	{
 		path: '/edit-profile',
 		element: <EditProfile />,
+	},
+	{
+		path: '/profile/:userEmail',
+		element: <Profile />,
 	},
 ]);
 

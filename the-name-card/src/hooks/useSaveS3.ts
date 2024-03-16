@@ -1,8 +1,16 @@
+import { RootState } from '@store/store';
+import { useSelector } from 'react-redux';
+
 export const useSaveS3 = () => {
+	const googleToken = useSelector((state: RootState) => state.auth.token);
+
 	const getPresigned = async (key: string, contentType: string) => {
 		const response = await fetch(import.meta.env.VITE_GET_PRESIGNED_URL, {
 			method: 'post',
 			body: JSON.stringify({ key, contentType }),
+			headers: {
+				Authorization: 'Basic ' + googleToken,
+			},
 		});
 		const body = await response.json();
 		if (!body.url) throw Error('unable to get url');
