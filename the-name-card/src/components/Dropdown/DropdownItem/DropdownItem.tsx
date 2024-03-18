@@ -10,8 +10,8 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({
 	onClick,
 }) => {
 	return (
-		<div className="dropdown-item" onClick={onClick}>
-			<p className="label">{label}</p>
+		<div className="dropdown__item" onClick={onClick}>
+			<p className="item__label">{label}</p>
 		</div>
 	);
 };

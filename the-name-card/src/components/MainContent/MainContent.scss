@@ -1,20 +1,20 @@
 @import '@styles/variables';
 @import '@styles/mixins';
 
-.main-content {
+.landing__main-content {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 
 	gap: $mid-gap $big-gap;
 
-	.texts {
+	.main-content__texts {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		gap: $small-gap;
 		max-width: 500px;
-		.attention {
+		.texts__attention {
 			min-height: 7rem;
 			line-height: 3.75rem;
 
@@ -24,22 +24,22 @@
 
 			white-space: normal;
 		}
-		.description {
+		.texts__description {
 			text-align: center;
 			font-size: 1.25rem;
 			line-height: 1.75rem;
 			font-weight: 400;
 			color: $secondary;
 		}
-		.actions {
+		.texts__actions {
 			display: flex;
 			flex-direction: column;
 			gap: $tiny-gap;
 			justify-content: center;
 			align-items: center;
 
-			.action {
-				@include action-shadow;
+			.texts__action {
+				box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.15);
 
 				width: 20rem;
 				padding: $tiny-gap 0;
@@ -49,25 +49,25 @@
 				font-weight: 500;
 			}
 
-			.main {
+			.texts__action--main {
 				background-color: $primary;
 				color: white;
 			}
 
-			.sub {
+			.texts__action--sub {
 				border: 1px solid $light-secondary;
 				font-weight: 400;
 				color: $secondary;
 			}
 		}
 	}
-	.image-container {
+	.main-content__image-container {
 		flex: 1;
 		display: flex;
 		justify-content: center;
 		max-width: 700px;
 
-		.image {
+		.main-content__image {
 			width: 100%;
 		}
 	}

@@ -1,13 +1,28 @@
 @import '@styles/variables';
 @import '@styles/mixins';
 
-.link-inputs {
+.widget__link-inputs {
 	position: relative;
 	display: grid;
 	gap: $x-tiny-gap;
 	padding: $x-tiny-gap 0;
 }
 
-.input-wrapper {
-	@include input;
+.link__input-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: $xx-tiny-gap;
+	padding: 0 $tiny-gap;
+
+	.label {
+		font-size: 0.8rem;
+		color: $secondary;
+
+		.label-icon {
+			vertical-align: bottom;
+		}
+	}
+	.input {
+		padding: $x-tiny-gap;
+	}
 }

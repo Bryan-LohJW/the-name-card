@@ -14,11 +14,11 @@ export const Dropdown: React.FC<DropdownProps> = ({ children }) => {
 	};
 
 	return (
-		<div>
-			<div className="add-widget" onClick={toggleOpen}>
+		<div className="edit-profile__dropdown">
+			<div className="dropdown__button" onClick={toggleOpen}>
 				+ Widget
 			</div>
-			<div className="dropdown-options">
+			<div className="dropdown__options">
 				{isOpen && <div onClick={toggleOpen}>{children}</div>}
 			</div>
 		</div>

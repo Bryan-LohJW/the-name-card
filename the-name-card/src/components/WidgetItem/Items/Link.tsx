@@ -19,8 +19,8 @@ export const Link: React.FC<WidgetProp> = ({ value, updateValue }) => {
 		updateValue && updateValue(JSON.stringify(linkValues));
 	};
 	return (
-		<div className="link-inputs">
-			<div className="input-wrapper">
+		<div className="widget__link-inputs">
+			<div className="link__input-wrapper">
 				<label htmlFor="description" className="label">
 					Description
 				</label>
@@ -35,7 +35,7 @@ export const Link: React.FC<WidgetProp> = ({ value, updateValue }) => {
 					}
 				/>
 			</div>
-			<div className="input-wrapper">
+			<div className="link__input-wrapper">
 				<label htmlFor="link" className="label">
 					Link
 				</label>

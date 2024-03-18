@@ -3,7 +3,7 @@ import './Landing.scss';
 
 const Landing = () => {
 	return (
-		<>
+		<div className="landing__margin">
 			<Header />
 			<MainContent />
 			<CardHolder>
@@ -12,7 +12,7 @@ const Landing = () => {
 				<Card />
 			</CardHolder>
 			<Footer />
-		</>
+		</div>
 	);
 };
 

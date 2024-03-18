@@ -8,7 +8,7 @@ interface MarginProps {
 
 const Margin = ({ children }: MarginProps) => {
 	return (
-		<div className="margins">
+		<div className="margin__margins">
 			<div className="content">{children}</div>
 		</div>
 	);

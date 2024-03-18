@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 
-import { Section } from '@components';
 import './CardHolder.scss';
 
 interface CardHolderProps {
@@ -9,9 +8,9 @@ interface CardHolderProps {
 
 const CardHolder = ({ children }: CardHolderProps) => {
 	return (
-		<Section>
-			<div className="card-holder">{children}</div>
-		</Section>
+		<div className="landing__card-holder">
+			<div className="content">{children}</div>
+		</div>
 	);
 };
 

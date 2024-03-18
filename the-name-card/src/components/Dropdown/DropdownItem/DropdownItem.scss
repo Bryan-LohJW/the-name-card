@@ -1,6 +1,6 @@
 @import '@styles/variables';
 
-.dropdown-item {
+.dropdown__item {
 	width: 100%;
 	height: 2rem;
 	background-color: $white;
@@ -13,7 +13,7 @@
 
 	box-sizing: border-box;
 
-	.label {
+	.item__label {
 		font-size: large;
 		font-weight: 600;
 	}
