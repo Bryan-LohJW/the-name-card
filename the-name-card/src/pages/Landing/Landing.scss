@@ -1,0 +1,11 @@
+@import '@styles/variables';
+
+.landing__margin {
+	margin: 0 10rem;
+}
+
+@media (max-width: $min-width-sm) {
+	.landing__margin {
+		margin: 0 1rem;
+	}
+}

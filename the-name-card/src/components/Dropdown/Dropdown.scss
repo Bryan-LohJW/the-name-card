@@ -1,19 +1,21 @@
 @import '@styles/variables';
 
-.add-widget {
-	padding: $tiny-gap;
-	margin: 0 $mid-gap $xx-tiny-gap;
-	text-align: center;
-	border-radius: 0.3rem;
-	background-color: $secondary;
-	color: $white;
-}
+.edit-profile__dropdown {
+	.dropdown__button {
+		padding: $tiny-gap;
+		margin: 0 $mid-gap $xx-tiny-gap;
+		text-align: center;
+		border-radius: 0.3rem;
+		background-color: $secondary;
+		color: $white;
+	}
 
-.dropdown-options {
-	margin: 0 $mid-gap $x-tiny-gap;
-	display: flex;
-	flex-direction: column;
-	gap: 0.2rem;
+	.dropdown__options {
+		margin: 0 $mid-gap $x-tiny-gap;
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
 
-	background-color: $mid-secondary;
+		background-color: $mid-secondary;
+	}
 }

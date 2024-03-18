@@ -8,7 +8,7 @@ const DUMMY_DETAILS = {
 
 const Card = () => {
 	return (
-		<div className="card">
+		<div className="landing__card">
 			<img src={`${DUMMY_DETAILS.image}`} className="image" />
 			<div className="description">
 				<p>{DUMMY_DETAILS.description}</p>

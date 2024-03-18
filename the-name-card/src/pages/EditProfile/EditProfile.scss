@@ -1,7 +1,7 @@
 @import '@styles/mixins';
 @import '@styles/variables';
 
-.background {
+.edit-profile__background {
 	background-color: $off-white;
 	position: fixed;
 
@@ -13,24 +13,24 @@
 	z-index: -1;
 }
 
-.header {
+.editor__header {
 	@include flex-space;
 	position: relative;
 	padding: $tiny-gap;
 
-	.back-wrapper {
-		.back {
+	.header__back-action-wrapper {
+		.back-action {
 			height: 1.25rem;
 			width: 100%;
 		}
 	}
 
-	.title {
+	.header__title {
 		font-size: large;
 		font-weight: 500;
 	}
 
-	.save-button {
+	.header__save-button {
 		background-color: $primary;
 		color: $white;
 
@@ -40,7 +40,7 @@
 	}
 }
 
-.widget {
+.builder__widget {
 	margin: $tiny-gap;
 	position: relative;
 	display: flex;
@@ -52,7 +52,7 @@
 	// pointer-events: none;
 	user-select: none;
 
-	.delete-button {
+	.widget__delete-button {
 		position: absolute;
 		right: 0;
 		top: 0;

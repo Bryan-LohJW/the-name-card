@@ -6,14 +6,14 @@ import './Footer.scss';
 
 const Footer = () => {
 	return (
-		<footer className="footer">
-			<div className="terms-service">
-				<p className="service-item">Privacy Policy</p>
-				<p className="service-item">Terms of Service</p>
-				<p className="service-item">Disclaimer</p>
+		<footer className="landing__footer">
+			<div className="footer__terms-service">
+				<p className="service__item">Privacy Policy</p>
+				<p className="service__item">Terms of Service</p>
+				<p className="service__item">Disclaimer</p>
 			</div>
-			<div className="line-break" />
-			<div className="socials-wrapper">
+			<div className="service__line-break" />
+			<div className="service__socials-wrapper">
 				<p>&copy; 2024 TheNameCard. All rights reserved</p>
 				<div className="socials">
 					<FaGithub className="social" />

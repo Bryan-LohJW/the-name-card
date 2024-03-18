@@ -18,7 +18,7 @@ export const WidgetItem: React.FC<WidgetProp> = ({
 }) => {
 	const WidgetComponent = widgetComponentMap[type];
 	return (
-		<div className="widget-wrapper">
+		<div className="edit--profile__widget-wrapper">
 			<WidgetComponent
 				type={type}
 				value={value}

@@ -1,13 +1,28 @@
 @import '@styles/variables';
 @import '@styles/mixins';
 
-.core-info {
+.edit-profile__core-info {
 	position: relative;
 	display: grid;
 	gap: $x-tiny-gap;
 	padding: 0 0 $mid-gap;
 
-	.core-input {
-		@include input;
+	.core-info__input {
+		display: flex;
+		flex-direction: column;
+		gap: $xx-tiny-gap;
+		padding: 0 $tiny-gap;
+
+		.input__label {
+			font-size: 0.8rem;
+			color: $secondary;
+
+			.label__icon {
+				vertical-align: bottom;
+			}
+		}
+		.input__field {
+			padding: $x-tiny-gap;
+		}
 	}
 }

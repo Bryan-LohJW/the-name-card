@@ -35,19 +35,19 @@ const EditProfileImage: React.FC<EditProfileImageProp> = ({
 		}
 	};
 	return (
-		<div className="wrapper">
+		<div className="edit-profile-image__wrapper">
 			<div
-				className="profile-picture-wrapper"
+				className="edit-profile-picture"
 				onClick={openProfileFileInput}
 			>
 				{profilePicture ? (
 					<img
 						src={profilePicture.url}
 						alt="profile picture"
-						className="profile-picture"
+						className="image"
 					/>
 				) : (
-					<IoPersonOutline className="profile-picture" />
+					<IoPersonOutline className="image" />
 				)}
 
 				<input

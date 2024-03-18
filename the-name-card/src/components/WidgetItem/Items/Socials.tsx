@@ -110,7 +110,7 @@ export const Socials: React.FC<WidgetProp> = ({ value, updateValue }) => {
 		updateValue && updateValue(JSON.stringify(socialsValue));
 	};
 	return (
-		<div className="widget-socials">
+		<div className="widget__socials">
 			{socialsValue.map((social, index) => {
 				const socialType = SocialTypesMap[social.social];
 				const SocialIcon = socialType.icon;

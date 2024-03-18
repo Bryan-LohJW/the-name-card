@@ -55,12 +55,12 @@ const EditProfileBanner: React.FC<EditProfileBannerProp> = ({
 		}
 	};
 	return (
-		<div className="banner" style={bannerStyle}>
+		<div className="edit-profile__banner" style={bannerStyle}>
 			{bannerImage && (
 				<img
 					src={bannerImage.url}
-					alt="banner-image"
-					className="banner-image"
+					alt="banner image"
+					className="banner__image"
 				/>
 			)}
 			<input
@@ -71,24 +71,24 @@ const EditProfileBanner: React.FC<EditProfileBannerProp> = ({
 				accept="image/png, image/jpeg, image/jpg"
 				onChange={handleBannerFileChange}
 			/>
-			<div className="banner-setting">
+			<div className="banner__setting">
 				<LuImagePlus
-					className="banner-icon"
+					className="setting__icon"
 					onClick={openBannerFileInput}
 				/>
 				{!showColorPalette ? (
 					<IoColorPaletteOutline
-						className="banner-icon"
+						className="setting__icon"
 						onClick={toggleColorPalette}
 					/>
 				) : (
-					<IoClose className="banner-icon" />
+					<IoClose className="setting__icon" />
 				)}
 			</div>
 			{showColorPalette && (
 				<OutsideClickHandler onOutsideClick={toggleColorPalette}>
 					<ChromePicker
-						className="color-picker"
+						className="banner__color-picker"
 						color={bannerColor}
 						onChange={onColorChange}
 					/>

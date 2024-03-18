@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import SortableList, { SortableItem, SortableKnob } from 'react-easy-sort';
 import arrayMove from 'array-move';
+import { useSelector } from 'react-redux';
 import { IoMdArrowBack } from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
 import { MdDragIndicator } from 'react-icons/md';
@@ -20,9 +21,8 @@ import {
 	LoginCard,
 } from '@components';
 import { useSaveS3 } from '@hooks/useSaveS3';
-import './EditProfile.scss';
-import { useSelector } from 'react-redux';
 import { RootState } from '@store/store';
+import './EditProfile.scss';
 
 export const EditProfile = () => {
 	const [showLogin, setShowLogin] = useState(false);
@@ -152,19 +152,22 @@ export const EditProfile = () => {
 		<>
 			<FormProvider {...methods}>
 				<form onSubmit={onSubmit}>
-					<div className="background"></div>
-					<div className="editor">
-						<div className="header">
-							<div className="back-wrapper">
-								<IoMdArrowBack className="back" />
+					<div className="edit-profile__background"></div>
+					<div className="edit-profile__editor">
+						<div className="editor__header">
+							<div className="header__back-action-wrapper">
+								<IoMdArrowBack className="back-action" />
 							</div>
-							<p className="title">Edit Profile</p>
-							<button type="submit" className="save-button">
+							<p className="header__title">Edit Profile</p>
+							<button
+								type="submit"
+								className="header__save-button"
+							>
 								Save
 							</button>
 						</div>
-						<div className="profile-builder">
-							<div className="core-profile">
+						<div className="editor__profile-builder">
+							<div className="builder__core-profile">
 								<EditProfileBanner
 									bannerColor={bannerColor}
 									setBannerColor={setBannerColor}
@@ -203,7 +206,7 @@ export const EditProfile = () => {
 									return (
 										<SortableItem key={widget.id}>
 											<div
-												className="widget"
+												className="builder__widget"
 												key={widget.id}
 											>
 												<WidgetItem
@@ -213,7 +216,7 @@ export const EditProfile = () => {
 													deleteWidget={deleteWidget}
 												/>
 												<div
-													className="delete-button"
+													className="widget__delete-button"
 													onClick={deleteWidget}
 												>
 													<IoClose className="delete-icon" />

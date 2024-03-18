@@ -25,12 +25,12 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="header">
-				<h1 className="branding">
-					<BsPersonVcardFill className="logo" />
-					<p className="product-name">The Name Card</p>
+			<header className="landing__header">
+				<h1 className="header__branding">
+					<BsPersonVcardFill className="header__logo" />
+					<p className="header__product-name">The Name Card</p>
 				</h1>
-				<div className="nav-desktop">
+				<div className="header__nav-desktop">
 					{userName && (
 						<p className="welcome-msg">Welcome{' ' + userName}</p>
 					)}
@@ -46,28 +46,31 @@ const Header = () => {
 						</div>
 					)}
 				</div>
-				<div className="nav-mobile">
-					<div className="hamburger" onClick={toggleMenu}>
-						<BsList className="logo" />
+				<div className="header__nav-mobile">
+					<div className="header__hamburger" onClick={toggleMenu}>
+						<BsList className="hamburger-logo" />
 					</div>
 					<nav
 						className={`menu-content ${
 							isMenuOpen ? 'open' : 'close'
 						}`}
 					>
-						<div className="close" onClick={toggleMenu}>
-							<BsXLg className="logo" />
+						<div
+							className="menu-content__close"
+							onClick={toggleMenu}
+						>
+							<BsXLg className="close-logo" />
 						</div>
-						<h1 className="branding">
-							<BsPersonVcardFill className="logo" />
+						<h1 className="header__branding">
+							<BsPersonVcardFill className="header__logo" />
 							<p className="product-name">The Name Card</p>
 						</h1>
 						{userName && (
-							<p className="welcome-msg">
+							<p className="menu-content__welcome-msg">
 								Welcome{' ' + userName}
 							</p>
 						)}
-						<ul className="menu-list">
+						<ul className="menu-content__menu-list">
 							<li className="list-item">About</li>
 							<li className="list-item">Try</li>
 						</ul>
