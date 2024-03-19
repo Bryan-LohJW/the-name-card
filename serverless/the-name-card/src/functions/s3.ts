@@ -7,7 +7,7 @@ import S3 from 'aws-sdk/clients/s3';
 import { z } from 'zod';
 import { config } from 'dotenv';
 config();
-import { ValidationError } from 'src/errors/errors';
+import { BaseError, ValidationError } from 'src/errors/errors';
 
 const s3 = new S3({
 	apiVersion: '2006-03-01',
@@ -49,9 +49,14 @@ export const getPresignedUrl: APIGatewayProxyHandler = async (
 		};
 	} catch (e) {
 		console.log(e);
+		if (e instanceof BaseError)
+			return {
+				statusCode: e.httpCode,
+				body: JSON.stringify({ message: e.message }),
+			};
 		return {
 			statusCode: 500,
-			body: JSON.stringify(e),
+			body: JSON.stringify({ message: 'Internal Server Error' }),
 		};
 	}
 };
