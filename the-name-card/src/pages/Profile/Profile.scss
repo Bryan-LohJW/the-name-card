@@ -111,5 +111,11 @@
 				}
 			}
 		}
+		.profile_widgets-display {
+			display: grid;
+			grid-template-rows: auto;
+			gap: $tiny;
+			margin: $small $tiny 0;
+		}
 	}
 }
