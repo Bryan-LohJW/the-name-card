@@ -85,7 +85,7 @@ export const Socials: React.FC<WidgetProp> = ({ value, updateValue }) => {
 				);
 			})}
 			<div
-				className={`add ${existingSocials.size >= 4 && 'hidden'}`}
+				className={`add ${existingSocials.size >= 1 && 'hidden'}`}
 				onClick={toggleOptions}
 			>
 				<TiPlus className="add-button" />
