@@ -1,0 +1,29 @@
+@import '@styles/variables';
+@import '@styles/mixins';
+
+.display-item {
+	display: grid;
+	grid-template-columns: min-content min-content 1fr;
+	border: 1px solid black;
+	align-items: center;
+	gap: $x-tiny;
+	padding: $xx-tiny $x-tiny;
+	border-radius: $xx-tiny;
+	.display-item__icon-wrap {
+		.display-item__icon {
+			height: 1.8rem;
+			width: 1.8rem;
+		}
+	}
+
+	.display-item__text-content {
+		text-wrap: nowrap;
+		font-weight: 450;
+		font-size: large;
+	}
+	.display-item__action {
+		display: flex;
+		justify-content: end;
+		align-items: center;
+	}
+}

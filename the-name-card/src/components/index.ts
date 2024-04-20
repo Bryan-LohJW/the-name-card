@@ -13,3 +13,4 @@ export * from './EditProfileImage/EditProfileImage';
 export * from './EditProfileCore/EditProfileCore';
 export * from './Modal/Modal';
 export * from './LoginCard/LoginCard';
+export * from './WidgetItem/Display';

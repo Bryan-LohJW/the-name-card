@@ -1,72 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import OutsideClickHandler from 'react-outside-click-handler';
-import {
-	FaInstagram,
-	FaFacebook,
-	FaXTwitter,
-	FaLinkedin,
-	FaYoutube,
-	FaTiktok,
-	FaRegTrashCan,
-} from 'react-icons/fa6';
+import { FaRegTrashCan } from 'react-icons/fa6';
 import { TiPlus } from 'react-icons/ti';
 
-import { WidgetProp } from '.';
+import { SocialMediaType, SocialTypesMap, WidgetProp } from '.';
 import './Socials.scss';
-
-enum SocialMediaType {
-	Instagram = 'instagram',
-	Facebook = 'facebook',
-	Twitter = 'twitter',
-	LinkedIn = 'linkedIn',
-	Youtube = 'youtube',
-	TikTok = 'tiktok',
-}
 
 const SocialArray = z
 	.object({ social: z.nativeEnum(SocialMediaType), value: z.string() })
 	.array();
 
 export type SocialArray = z.infer<typeof SocialArray>;
-
-interface IconProp {
-	className?: string;
-}
-
-interface SocialMediaEntry {
-	icon: React.FC<IconProp>;
-	url: string;
-}
-
-type SocialTypesMap = Record<SocialMediaType, SocialMediaEntry>;
-
-const SocialTypesMap: SocialTypesMap = {
-	[SocialMediaType.Instagram]: {
-		icon: FaInstagram,
-		url: 'www.instagram.com/',
-	},
-	[SocialMediaType.Facebook]: {
-		icon: FaFacebook,
-		url: 'www.facebook.com/',
-	},
-	[SocialMediaType.Twitter]: {
-		icon: FaXTwitter,
-		url: 'www.twitter.com/',
-	},
-	[SocialMediaType.LinkedIn]: {
-		icon: FaLinkedin,
-		url: 'www.linkedin.com/in/',
-	},
-	[SocialMediaType.Youtube]: {
-		icon: FaYoutube,
-		url: 'www.youtube.com/@',
-	},
-	[SocialMediaType.TikTok]: {
-		icon: FaTiktok,
-		url: 'www.tiktok.com/@',
-	},
-};
 
 export const Socials: React.FC<WidgetProp> = ({ value, updateValue }) => {
 	const rawValue = JSON.parse(value);
@@ -140,7 +85,7 @@ export const Socials: React.FC<WidgetProp> = ({ value, updateValue }) => {
 				);
 			})}
 			<div
-				className={`add ${existingSocials.size >= 4 && 'hidden'}`}
+				className={`add ${existingSocials.size >= 1 && 'hidden'}`}
 				onClick={toggleOptions}
 			>
 				<TiPlus className="add-button" />
